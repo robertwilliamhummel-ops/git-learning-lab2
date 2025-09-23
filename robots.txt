@@ -1,0 +1,41 @@
+# Robots.txt for Cold Force Mechanical Inc.
+# Professional HVAC Services - Greater Toronto Area
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://coldforcemechanical.com/sitemap.xml
+
+# Allow all major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# Disallow admin or private areas (if any in future)
+# User-agent: *
+# Disallow: /admin/
+# Disallow: /private/
+
+# Allow access to CSS and JS files for proper rendering
+User-agent: *
+Allow: /assets/css/
+Allow: /assets/js/
+Allow: /assets/images/
+
+# Crawl delay (optional - can help with server load)
+# Crawl-delay: 1
+
+# Additional information
+# Website: https://coldforcemechanical.com
+# Contact: info@coldforcemechanical.com
+# Services: HVAC, Refrigeration, Emergency Repairs
+# Service Area: Greater Toronto Area (GTA)
