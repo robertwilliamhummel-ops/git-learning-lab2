@@ -499,7 +499,7 @@ a:hover {
   
   /* Fix hero section overlap on mobile - increase top padding */
   .hero {
-    padding-top: 140px; /* Increased from 120px to clear 70px fixed nav */
+    padding-top: 160px; /* Increased from 140px for better clearance */
   }
 }
 
@@ -798,10 +798,10 @@ a:hover {
 @media screen and (max-width: 768px) {
   .nav__menu {
     position: fixed;
-    top: 80px;
+    top: 70px; /* Updated from 80px to match new nav height */
     left: -100%;
     width: 100%;
-    height: calc(100vh - 80px);
+    height: calc(100vh - 70px); /* Updated from 80px to match new nav height */
     background: var(--white);
     flex-direction: column;
     justify-content: center;
