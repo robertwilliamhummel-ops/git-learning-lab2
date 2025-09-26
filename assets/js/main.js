@@ -250,8 +250,15 @@ class AnimationController {
     }
     
     animateCounter(element) {
-        const target = parseInt(element.textContent.replace(/\D/g, ''));
-        const suffix = element.textContent.replace(/\d/g, '');
+        const originalText = element.textContent;
+        
+        // Skip animation for "24/7" as it represents service availability, not a countable number
+        if (originalText.includes('24/7')) {
+            return; // Keep original "24/7" text without animation
+        }
+        
+        const target = parseInt(originalText.replace(/\D/g, ''));
+        const suffix = originalText.replace(/\d/g, '');
         let current = 0;
         const increment = target / 50;
         const timer = setInterval(() => {
