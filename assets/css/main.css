@@ -523,7 +523,7 @@ a:hover {
   
   /* Adjust company name text size and positioning on mobile */
   .nav__logo {
-    font-size: var(--font-size-xl); /* Reduced from 2xl for better mobile spacing */
+    font-size: 1.3125rem; /* 5% bigger than xl (1.25rem) for better mobile readability */
     margin-left: var(--spacing-sm); /* Move text slightly left away from hamburger */
   }
   
