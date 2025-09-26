@@ -491,6 +491,13 @@ a:hover {
   color: var(--primary-blue);
 }
 
+/* Hide "Inc." on mobile to prevent text wrapping */
+@media screen and (max-width: 768px) {
+  .nav__logo .mobile-hide {
+    display: none;
+  }
+}
+
 .nav__logo i {
   font-size: var(--font-size-2xl);
   color: var(--accent-red);
