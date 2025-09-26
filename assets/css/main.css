@@ -503,26 +503,26 @@ a:hover {
   
   /* Primary fix: Override desktop padding with higher specificity */
   .hero.section {
-    padding-top: calc(70px + 100px) !important; /* Navigation height + buffer */
+    padding-top: calc(70px + 24px) !important; /* Navigation height + 1 inch buffer (24px ≈ 1 inch at 96dpi) */
     padding-bottom: var(--spacing-4xl) !important;
     margin-top: 0 !important; /* Reset any inherited margins */
   }
   
   /* Secondary fix: Target hero container directly for extra safety */
   .hero__container {
-    padding-top: 20px; /* Additional buffer for hero content */
+    padding-top: 0; /* Removed extra padding to bring content up */
     margin-top: 0;
   }
   
   /* Tertiary fix: Ensure hero title has proper top spacing */
   .hero__title {
     margin-top: 0;
-    padding-top: 10px; /* Small additional buffer */
+    padding-top: 0; /* Removed extra padding to bring title up */
   }
   
   /* Modern mobile device support - Safe area insets for notched devices */
   .hero.section {
-    padding-top: calc(70px + 100px + env(safe-area-inset-top, 0px)) !important;
+    padding-top: calc(70px + 24px + env(safe-area-inset-top, 0px)) !important;
   }
 }
 
@@ -880,57 +880,57 @@ a:hover {
 /* Standard mobile phones (414px - 768px) */
 @media screen and (max-width: 414px) {
   .hero.section {
-    padding-top: calc(70px + 110px + env(safe-area-inset-top, 0px)) !important;
+    padding-top: calc(70px + 30px + env(safe-area-inset-top, 0px)) !important;
   }
   
   .hero__container {
-    padding-top: 25px; /* Extra buffer for smaller screens */
+    padding-top: 0; /* Removed extra buffer to bring content up */
   }
   
   .hero__title {
     font-size: var(--font-size-3xl);
-    padding-top: 15px; /* More spacing on small screens */
+    padding-top: 0; /* Removed extra spacing */
   }
 }
 
 /* Small mobile phones (375px and below) */
 @media screen and (max-width: 375px) {
   .hero.section {
-    padding-top: calc(70px + 120px + env(safe-area-inset-top, 0px)) !important;
+    padding-top: calc(70px + 36px + env(safe-area-inset-top, 0px)) !important;
   }
   
   .hero__container {
-    padding-top: 30px; /* Maximum buffer for smallest screens */
+    padding-top: 0; /* Removed extra buffer to bring content up */
   }
   
   .hero__title {
-    padding-top: 20px; /* Maximum spacing for tiny screens */
+    padding-top: 0; /* Removed extra spacing */
   }
 }
 
 /* Very small mobile phones (320px and below) */
 @media screen and (max-width: 320px) {
   .hero.section {
-    padding-top: calc(70px + 130px + env(safe-area-inset-top, 0px)) !important;
+    padding-top: calc(70px + 42px + env(safe-area-inset-top, 0px)) !important;
   }
   
   .hero__container {
-    padding-top: 35px; /* Maximum buffer for legacy small screens */
+    padding-top: 0; /* Removed extra buffer to bring content up */
   }
 }
 
 /* Landscape orientation fixes for mobile devices */
 @media screen and (max-width: 768px) and (orientation: landscape) {
   .hero.section {
-    padding-top: calc(70px + 80px + env(safe-area-inset-top, 0px)) !important;
+    padding-top: calc(70px + 18px + env(safe-area-inset-top, 0px)) !important;
   }
   
   .hero__container {
-    padding-top: 15px; /* Reduced padding in landscape */
+    padding-top: 0; /* Removed extra padding in landscape */
   }
   
   .hero__title {
-    padding-top: 5px; /* Minimal padding in landscape */
+    padding-top: 0; /* Removed extra padding in landscape */
   }
 }
 
