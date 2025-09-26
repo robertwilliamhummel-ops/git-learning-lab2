@@ -476,7 +476,7 @@ a:hover {
 }
 
 .nav {
-  height: 80px;
+  height: 70px; /* Reduced from 80px for better mobile appearance */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -486,8 +486,8 @@ a:hover {
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
-  font-size: var(--font-size-xl);
-  font-weight: 700;
+  font-size: var(--font-size-2xl); /* Increased from xl to 2xl for bigger text */
+  font-weight: 800; /* Increased from 700 to 800 for bolder text */
   color: var(--primary-blue);
 }
 
