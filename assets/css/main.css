@@ -521,6 +521,12 @@ a:hover {
     display: none;
   }
   
+  /* Adjust company name text size and positioning on mobile */
+  .nav__logo {
+    font-size: var(--font-size-xl); /* Reduced from 2xl for better mobile spacing */
+    margin-left: var(--spacing-sm); /* Move text slightly left away from hamburger */
+  }
+  
   /* ===== COMPREHENSIVE MOBILE HERO SECTION FIX ===== */
   /* Fix persistent hero section overlap on mobile devices */
   /* Uses multiple defensive strategies to ensure proper spacing */
