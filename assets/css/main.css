@@ -106,13 +106,26 @@
   padding: 20px;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(5px);
+  /* Mobile touch interaction */
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
-.hero__logo-spin:hover {
+.hero__logo-spin:hover,
+.hero__logo-spin.active-touch {
   animation: logo-spin 2s linear infinite, logo-glow-pulse 1.5s ease-in-out infinite;
   transform: scale(1.05);
   border-color: rgba(220, 38, 38, 0.4);
   background: rgba(255, 255, 255, 0.1);
+}
+
+/* Mobile-specific touch feedback */
+@media screen and (max-width: 768px) {
+  .hero__logo-spin:active {
+    transform: scale(0.98);
+  }
 }
 
 /* Hero blob container optimizations */

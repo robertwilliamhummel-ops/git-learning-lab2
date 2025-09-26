@@ -418,6 +418,62 @@ class QuoteCalculator {
     }
 }
 
+// ===== MOBILE LOGO INTERACTION =====
+class MobileLogoInteraction {
+    constructor() {
+        this.logo = document.querySelector('.hero__logo-spin');
+        this.touchTimeout = null;
+        this.init();
+    }
+    
+    init() {
+        if (!this.logo) return;
+        
+        // Touch events for mobile
+        this.logo.addEventListener('touchstart', (e) => this.handleTouchStart(e));
+        this.logo.addEventListener('touchend', (e) => this.handleTouchEnd(e));
+        
+        // Click events for desktop fallback
+        this.logo.addEventListener('click', (e) => this.handleClick(e));
+    }
+    
+    handleTouchStart(e) {
+        e.preventDefault();
+        this.logo.classList.add('active-touch');
+        
+        // Clear any existing timeout
+        if (this.touchTimeout) {
+            clearTimeout(this.touchTimeout);
+        }
+    }
+    
+    handleTouchEnd(e) {
+        e.preventDefault();
+        
+        // Remove active state after 2 seconds
+        this.touchTimeout = setTimeout(() => {
+            this.logo.classList.remove('active-touch');
+        }, 2000);
+    }
+    
+    handleClick(e) {
+        // Only handle click on desktop (non-touch devices)
+        if (!('ontouchstart' in window)) {
+            this.logo.classList.add('active-touch');
+            
+            // Clear any existing timeout
+            if (this.touchTimeout) {
+                clearTimeout(this.touchTimeout);
+            }
+            
+            // Remove active state after 2 seconds
+            this.touchTimeout = setTimeout(() => {
+                this.logo.classList.remove('active-touch');
+            }, 2000);
+        }
+    }
+}
+
 // ===== INITIALIZATION =====
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize all components
@@ -427,6 +483,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new ServiceAreaMap();
     new EmergencyCallTracker();
     new QuoteCalculator();
+    new MobileLogoInteraction();
     
     // Add loading animation
     document.body.classList.add('loaded');
