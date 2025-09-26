@@ -273,51 +273,6 @@ class AnimationController {
     }
 }
 
-// ===== SERVICE AREA MAP INTERACTIONS =====
-class ServiceAreaMap {
-    constructor() {
-        this.mapRegions = document.querySelectorAll('.map__region');
-        this.init();
-    }
-    
-    init() {
-        this.mapRegions.forEach(region => {
-            region.addEventListener('mouseenter', () => this.showRegionInfo(region));
-            region.addEventListener('mouseleave', () => this.hideRegionInfo(region));
-            region.addEventListener('click', () => this.navigateToRegion(region));
-        });
-    }
-    
-    showRegionInfo(region) {
-        const info = region.querySelector('.region__info');
-        if (info) {
-            info.style.display = 'block';
-            info.style.opacity = '0';
-            setTimeout(() => {
-                info.style.opacity = '1';
-            }, 10);
-        }
-        region.style.transform = 'scale(1.05)';
-    }
-    
-    hideRegionInfo(region) {
-        const info = region.querySelector('.region__info');
-        if (info) {
-            info.style.opacity = '0';
-            setTimeout(() => {
-                info.style.display = 'none';
-            }, 200);
-        }
-        region.style.transform = 'scale(1)';
-    }
-    
-    navigateToRegion(region) {
-        const regionName = region.dataset.region;
-        if (regionName) {
-            window.location.href = `areas/${regionName}.html`;
-        }
-    }
-}
 
 // ===== EMERGENCY CALL TRACKING =====
 class EmergencyCallTracker {
@@ -480,7 +435,6 @@ document.addEventListener('DOMContentLoaded', () => {
     new Navigation();
     new FormHandler();
     new AnimationController();
-    new ServiceAreaMap();
     new EmergencyCallTracker();
     new QuoteCalculator();
     new MobileLogoInteraction();

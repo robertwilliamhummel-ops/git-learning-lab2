@@ -66,100 +66,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        .service-map {
-            background: var(--gray-100);
-            border-radius: var(--border-radius-lg);
-            padding: 3rem;
-            margin: 3rem 0;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .map__container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-        }
-        
-        .map__region {
-            background: var(--white);
-            border: 3px solid var(--primary-blue);
-            border-radius: var(--border-radius-lg);
-            padding: 2rem;
-            text-align: center;
-            cursor: pointer;
-            transition: all var(--transition-normal);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .map__region:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--box-shadow-xl);
-            border-color: var(--accent-red);
-        }
-        
-        .map__region::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
-            transition: left 0.5s;
-        }
-        
-        .map__region:hover::before {
-            left: 100%;
-        }
-        
-        .region__name {
-            font-size: var(--font-size-xl);
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 1rem;
-            display: block;
-        }
-        
-        .region__info {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all var(--transition-normal);
-        }
-        
-        .map__region:hover .region__info {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .response__time {
-            background: var(--gradient-accent);
-            color: var(--white);
-            padding: 0.5rem 1rem;
-            border-radius: var(--border-radius);
-            font-size: var(--font-size-sm);
-            font-weight: 600;
-            display: inline-block;
-            margin-top: 1rem;
-        }
-        
-        @media screen and (max-width: 768px) {
-            .map__container {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-            
-            .service-map {
-                padding: 2rem 1rem;
-            }
-        }
-    </style>
 </head>
 <body>
     <!-- Header -->
@@ -215,149 +121,34 @@
                     </h1>
                     <p class="hero__description">
                         Cold Force Mechanical Inc. proudly serves the entire Greater Toronto Area with professional
-                        HVAC, refrigeration, and mechanical services. From downtown Toronto to surrounding municipalities,
-                        our certified technicians are ready to help with reliable service and expert solutions.
+                        HVAC, refrigeration, and mechanical services. Our certified technicians provide reliable service
+                        and expert solutions across all GTA municipalities.
                     </p>
                     <div class="hero__buttons">
                         <a href="../contact.html" class="button button--primary">
                             <i class="fas fa-map-marker-alt"></i>
-                            Find Your Area
+                            Schedule Service
                         </a>
                         <a href="tel:+14373664067" class="button button--call">
                             <i class="fas fa-phone"></i>
-                            Call Us
+                            Call Us Now
                         </a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Interactive Service Map -->
+        <!-- Service Areas Section -->
         <section class="section">
             <div class="container">
                 <div class="section__header">
-                    <h2 class="section__title">Interactive Service Map</h2>
+                    <h2 class="section__title">Our Service Areas & Response Times</h2>
                     <p class="section__subtitle">
-                        Click on any area below to learn more about our services and response times in your region
+                        Professional HVAC services available throughout the Greater Toronto Area with fast response times
                     </p>
                 </div>
 
-                <div class="service-map">
-                    <div class="map__container">
-                        <div class="map__region" data-region="markham">
-                            <span class="region__name">
-                                <i class="fas fa-map-marker-alt" style="margin-right: 0.5rem; color: var(--accent-red);"></i>
-                                Markham
-                            </span>
-                            <div class="region__info">
-                                <p style="color: var(--gray-600); margin-bottom: 1rem;">Complete HVAC services for York Region</p>
-                                <span class="response__time">45-60 min response</span>
-                            </div>
-                        </div>
-
-                        <div class="map__region" data-region="vaughan">
-                            <span class="region__name">
-                                <i class="fas fa-map-marker-alt" style="margin-right: 0.5rem; color: var(--accent-red);"></i>
-                                Vaughan
-                            </span>
-                            <div class="region__info">
-                                <p style="color: var(--gray-600); margin-bottom: 1rem;">Professional mechanical services</p>
-                                <span class="response__time">45-60 min response</span>
-                            </div>
-                        </div>
-
-                        <div class="map__region" data-region="richmond-hill">
-                            <span class="region__name">
-                                <i class="fas fa-map-marker-alt" style="margin-right: 0.5rem; color: var(--accent-red);"></i>
-                                Richmond Hill
-                            </span>
-                            <div class="region__info">
-                                <p style="color: var(--gray-600); margin-bottom: 1rem;">Residential & commercial HVAC</p>
-                                <span class="response__time">45-60 min response</span>
-                            </div>
-                        </div>
-
-                        <div class="map__region" data-region="brampton">
-                            <span class="region__name">
-                                <i class="fas fa-map-marker-alt" style="margin-right: 0.5rem; color: var(--accent-red);"></i>
-                                Brampton
-                            </span>
-                            <div class="region__info">
-                                <p style="color: var(--gray-600); margin-bottom: 1rem;">Full HVAC service coverage</p>
-                                <span class="response__time">45-60 min response</span>
-                            </div>
-                        </div>
-
-                        <div class="map__region" data-region="toronto" style="border-color: var(--accent-red); border-width: 4px;">
-                            <span class="region__name" style="color: var(--accent-red);">
-                                <i class="fas fa-map-marker-alt" style="margin-right: 0.5rem;"></i>
-                                Toronto
-                            </span>
-                            <div class="region__info">
-                                <p style="color: var(--gray-600); margin-bottom: 1rem;">All districts - Priority coverage</p>
-                                <span class="response__time">30-45 min response</span>
-                            </div>
-                        </div>
-
-                        <div class="map__region" data-region="mississauga">
-                            <span class="region__name">
-                                <i class="fas fa-map-marker-alt" style="margin-right: 0.5rem; color: var(--accent-red);"></i>
-                                Mississauga
-                            </span>
-                            <div class="region__info">
-                                <p style="color: var(--gray-600); margin-bottom: 1rem;">Complete area coverage</p>
-                                <span class="response__time">45-60 min response</span>
-                            </div>
-                        </div>
-
-                        <div class="map__region" data-region="oakville">
-                            <span class="region__name">
-                                <i class="fas fa-map-marker-alt" style="margin-right: 0.5rem; color: var(--accent-red);"></i>
-                                Oakville
-                            </span>
-                            <div class="region__info">
-                                <p style="color: var(--gray-600); margin-bottom: 1rem;">Professional HVAC services</p>
-                                <span class="response__time">60-75 min response</span>
-                            </div>
-                        </div>
-
-                        <div class="map__region" data-region="burlington">
-                            <span class="region__name">
-                                <i class="fas fa-map-marker-alt" style="margin-right: 0.5rem; color: var(--accent-red);"></i>
-                                Burlington
-                            </span>
-                            <div class="region__info">
-                                <p style="color: var(--gray-600); margin-bottom: 1rem;">Reliable mechanical services</p>
-                                <span class="response__time">60-75 min response</span>
-                            </div>
-                        </div>
-
-                        <div class="map__region" data-region="ajax">
-                            <span class="region__name">
-                                <i class="fas fa-map-marker-alt" style="margin-right: 0.5rem; color: var(--accent-red);"></i>
-                                Ajax & Durham
-                            </span>
-                            <div class="region__info">
-                                <p style="color: var(--gray-600); margin-bottom: 1rem;">Durham Region coverage</p>
-                                <span class="response__time">60-75 min response</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Detailed Service Areas -->
-        <section class="section" style="background: var(--gray-50);">
-            <div class="container">
-                <div class="section__header">
-                    <h2 class="section__title">Complete GTA Coverage</h2>
-                    <p class="section__subtitle">
-                        Professional HVAC services available throughout the Greater Toronto Area
-                    </p>
-                </div>
-
-                <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem;">
+                <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
                     <!-- Primary Service Areas -->
                     <div class="card">
                         <div style="background: var(--gradient-accent); padding: 1.5rem; border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0; margin: -2rem -2rem 1.5rem -2rem;">
@@ -367,31 +158,31 @@
                             </h3>
                         </div>
                         <ul style="list-style: none; padding: 0;">
-                            <li style="margin-bottom: 1rem; display: flex; align-items: center;">
-                                <i class="fas fa-check-circle" style="color: var(--accent-red); margin-right: 1rem; font-size: 1.2rem;"></i>
-                                <div>
-                                    <strong>Toronto</strong> - All districts and neighborhoods
-                                    <br><small style="color: var(--gray-600);">30-45 minute response time</small>
+                            <li style="margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between;">
+                                <div style="display: flex; align-items: center;">
+                                    <i class="fas fa-map-marker-alt" style="color: var(--accent-red); margin-right: 1rem; font-size: 1.2rem;"></i>
+                                    <strong>Toronto</strong>
                                 </div>
+                                <span style="background: var(--accent-red); color: var(--white); padding: 0.25rem 0.75rem; border-radius: var(--border-radius); font-size: var(--font-size-sm); font-weight: 600;">30-45 min</span>
                             </li>
-                            <li style="margin-bottom: 1rem; display: flex; align-items: center;">
-                                <i class="fas fa-check-circle" style="color: var(--accent-red); margin-right: 1rem; font-size: 1.2rem;"></i>
-                                <div>
-                                    <strong>Mississauga</strong> - Complete city coverage
-                                    <br><small style="color: var(--gray-600);">45-60 minute response time</small>
+                            <li style="margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between;">
+                                <div style="display: flex; align-items: center;">
+                                    <i class="fas fa-map-marker-alt" style="color: var(--accent-red); margin-right: 1rem; font-size: 1.2rem;"></i>
+                                    <strong>Mississauga</strong>
                                 </div>
+                                <span style="background: var(--primary-blue); color: var(--white); padding: 0.25rem 0.75rem; border-radius: var(--border-radius); font-size: var(--font-size-sm); font-weight: 600;">45-60 min</span>
                             </li>
-                            <li style="margin-bottom: 1rem; display: flex; align-items: center;">
-                                <i class="fas fa-check-circle" style="color: var(--accent-red); margin-right: 1rem; font-size: 1.2rem;"></i>
-                                <div>
-                                    <strong>Brampton</strong> - Full service area
-                                    <br><small style="color: var(--gray-600);">45-60 minute response time</small>
+                            <li style="margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between;">
+                                <div style="display: flex; align-items: center;">
+                                    <i class="fas fa-map-marker-alt" style="color: var(--accent-red); margin-right: 1rem; font-size: 1.2rem;"></i>
+                                    <strong>Brampton</strong>
                                 </div>
+                                <span style="background: var(--primary-blue); color: var(--white); padding: 0.25rem 0.75rem; border-radius: var(--border-radius); font-size: var(--font-size-sm); font-weight: 600;">45-60 min</span>
                             </li>
                         </ul>
                     </div>
 
-                    <!-- Secondary Service Areas -->
+                    <!-- Extended Service Areas -->
                     <div class="card">
                         <div style="background: var(--gradient-primary); padding: 1.5rem; border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0; margin: -2rem -2rem 1.5rem -2rem;">
                             <h3 style="color: var(--white); margin: 0; text-align: center;">
@@ -400,61 +191,91 @@
                             </h3>
                         </div>
                         <ul style="list-style: none; padding: 0;">
-                            <li style="margin-bottom: 1rem; display: flex; align-items: center;">
-                                <i class="fas fa-check-circle" style="color: var(--primary-blue); margin-right: 1rem; font-size: 1.2rem;"></i>
-                                <div>
-                                    <strong>Markham & Vaughan</strong> - York Region
-                                    <br><small style="color: var(--gray-600);">45-60 minute response time</small>
+                            <li style="margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between;">
+                                <div style="display: flex; align-items: center;">
+                                    <i class="fas fa-map-marker-alt" style="color: var(--primary-blue); margin-right: 1rem; font-size: 1.2rem;"></i>
+                                    <strong>Markham</strong>
                                 </div>
+                                <span style="background: var(--primary-blue); color: var(--white); padding: 0.25rem 0.75rem; border-radius: var(--border-radius); font-size: var(--font-size-sm); font-weight: 600;">45-60 min</span>
                             </li>
-                            <li style="margin-bottom: 1rem; display: flex; align-items: center;">
-                                <i class="fas fa-check-circle" style="color: var(--primary-blue); margin-right: 1rem; font-size: 1.2rem;"></i>
-                                <div>
-                                    <strong>Richmond Hill</strong> - North GTA
-                                    <br><small style="color: var(--gray-600);">45-60 minute response time</small>
+                            <li style="margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between;">
+                                <div style="display: flex; align-items: center;">
+                                    <i class="fas fa-map-marker-alt" style="color: var(--primary-blue); margin-right: 1rem; font-size: 1.2rem;"></i>
+                                    <strong>Vaughan</strong>
                                 </div>
+                                <span style="background: var(--primary-blue); color: var(--white); padding: 0.25rem 0.75rem; border-radius: var(--border-radius); font-size: var(--font-size-sm); font-weight: 600;">45-60 min</span>
                             </li>
-                            <li style="margin-bottom: 1rem; display: flex; align-items: center;">
-                                <i class="fas fa-check-circle" style="color: var(--primary-blue); margin-right: 1rem; font-size: 1.2rem;"></i>
-                                <div>
-                                    <strong>Oakville & Burlington</strong> - West GTA
-                                    <br><small style="color: var(--gray-600);">60-75 minute response time</small>
+                            <li style="margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between;">
+                                <div style="display: flex; align-items: center;">
+                                    <i class="fas fa-map-marker-alt" style="color: var(--primary-blue); margin-right: 1rem; font-size: 1.2rem;"></i>
+                                    <strong>Richmond Hill</strong>
                                 </div>
+                                <span style="background: var(--primary-blue); color: var(--white); padding: 0.25rem 0.75rem; border-radius: var(--border-radius); font-size: var(--font-size-sm); font-weight: 600;">45-60 min</span>
                             </li>
                         </ul>
                     </div>
 
-                    <!-- Specialty Areas -->
+                    <!-- Additional Areas -->
                     <div class="card">
                         <div style="background: var(--gradient-primary); padding: 1.5rem; border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0; margin: -2rem -2rem 1.5rem -2rem;">
                             <h3 style="color: var(--white); margin: 0; text-align: center;">
                                 <i class="fas fa-building" style="margin-right: 0.5rem;"></i>
-                                Commercial Specialists
+                                Additional Areas
                             </h3>
                         </div>
                         <ul style="list-style: none; padding: 0;">
-                            <li style="margin-bottom: 1rem; display: flex; align-items: center;">
-                                <i class="fas fa-check-circle" style="color: var(--primary-blue); margin-right: 1rem; font-size: 1.2rem;"></i>
-                                <div>
-                                    <strong>Ajax & Pickering</strong> - Durham Region
-                                    <br><small style="color: var(--gray-600);">60-75 minute response time</small>
+                            <li style="margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between;">
+                                <div style="display: flex; align-items: center;">
+                                    <i class="fas fa-map-marker-alt" style="color: var(--gray-600); margin-right: 1rem; font-size: 1.2rem;"></i>
+                                    <strong>Oakville</strong>
                                 </div>
+                                <span style="background: var(--gray-600); color: var(--white); padding: 0.25rem 0.75rem; border-radius: var(--border-radius); font-size: var(--font-size-sm); font-weight: 600;">60-75 min</span>
                             </li>
-                            <li style="margin-bottom: 1rem; display: flex; align-items: center;">
-                                <i class="fas fa-check-circle" style="color: var(--primary-blue); margin-right: 1rem; font-size: 1.2rem;"></i>
-                                <div>
-                                    <strong>Whitby & Oshawa</strong> - East GTA
-                                    <br><small style="color: var(--gray-600);">60-75 minute response time</small>
+                            <li style="margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between;">
+                                <div style="display: flex; align-items: center;">
+                                    <i class="fas fa-map-marker-alt" style="color: var(--gray-600); margin-right: 1rem; font-size: 1.2rem;"></i>
+                                    <strong>Burlington</strong>
                                 </div>
+                                <span style="background: var(--gray-600); color: var(--white); padding: 0.25rem 0.75rem; border-radius: var(--border-radius); font-size: var(--font-size-sm); font-weight: 600;">60-75 min</span>
                             </li>
-                            <li style="margin-bottom: 1rem; display: flex; align-items: center;">
-                                <i class="fas fa-check-circle" style="color: var(--primary-blue); margin-right: 1rem; font-size: 1.2rem;"></i>
-                                <div>
-                                    <strong>Custom Coverage</strong> - Special projects
-                                    <br><small style="color: var(--gray-600);">Contact for availability</small>
+                            <li style="margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between;">
+                                <div style="display: flex; align-items: center;">
+                                    <i class="fas fa-map-marker-alt" style="color: var(--gray-600); margin-right: 1rem; font-size: 1.2rem;"></i>
+                                    <strong>Ajax & Durham</strong>
                                 </div>
+                                <span style="background: var(--gray-600); color: var(--white); padding: 0.25rem 0.75rem; border-radius: var(--border-radius); font-size: var(--font-size-sm); font-weight: 600;">60-75 min</span>
                             </li>
                         </ul>
+                    </div>
+                </div>
+
+                <!-- Service Information -->
+                <div class="card" style="background: var(--gray-50); text-align: center; padding: 3rem 2rem;">
+                    <h3 style="color: var(--primary-blue); margin-bottom: 1rem;">
+                        <i class="fas fa-info-circle" style="margin-right: 0.5rem;"></i>
+                        Service Information
+                    </h3>
+                    <p style="color: var(--gray-600); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                        Response times may vary based on traffic conditions, weather, and current service demand. 
+                        Emergency services receive priority scheduling. We also provide service to surrounding areas - 
+                        contact us to confirm availability in your location.
+                    </p>
+                    <div style="display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap;">
+                        <div style="text-align: center;">
+                            <i class="fas fa-clock" style="font-size: 2rem; color: var(--accent-red); margin-bottom: 0.5rem;"></i>
+                            <h4 style="margin-bottom: 0.5rem;">24/7 Emergency</h4>
+                            <p style="color: var(--gray-600); margin: 0; font-size: var(--font-size-sm);">Available anytime</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <i class="fas fa-tools" style="font-size: 2rem; color: var(--primary-blue); margin-bottom: 0.5rem;"></i>
+                            <h4 style="margin-bottom: 0.5rem;">Fully Equipped</h4>
+                            <p style="color: var(--gray-600); margin: 0; font-size: var(--font-size-sm);">Complete parts inventory</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <i class="fas fa-certificate" style="font-size: 2rem; color: var(--accent-red); margin-bottom: 0.5rem;"></i>
+                            <h4 style="margin-bottom: 0.5rem;">Licensed & Insured</h4>
+                            <p style="color: var(--gray-600); margin: 0; font-size: var(--font-size-sm);">Professional technicians</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -469,12 +290,12 @@
                 </p>
                 <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                     <a href="../contact.html" class="button button--primary">
-                        <i class="fas fa-phone"></i>
-                        Contact Us Now
+                        <i class="fas fa-calendar-alt"></i>
+                        Schedule Service
                     </a>
                     <a href="tel:+14373664067" class="button button--call">
                         <i class="fas fa-phone"></i>
-                        Call Us Now
+                        Call (437) 366-4067
                     </a>
                 </div>
             </div>
@@ -508,24 +329,22 @@
                 </div>
 
                 <div class="footer__content">
-                    <h3 class="footer__title">Primary Areas</h3>
+                    <h3 class="footer__title">Our Services</h3>
                     <ul class="footer__links">
-                        <li><a href="toronto.html">Toronto HVAC Services</a></li>
-                        <li><a href="mississauga.html">Mississauga HVAC</a></li>
-                        <li><a href="brampton.html">Brampton HVAC</a></li>
-                        <li><a href="markham.html">Markham HVAC</a></li>
-                        <li><a href="vaughan.html">Vaughan HVAC</a></li>
+                        <li><a href="../services/hvac-systems.html">HVAC Systems & Climate Control</a></li>
+                        <li><a href="../services/refrigeration.html">Commercial Refrigeration</a></li>
+                        <li><a href="../services/index.html">All Services</a></li>
+                        <li><a href="../emergency.html">24/7 Emergency Service</a></li>
                     </ul>
                 </div>
 
                 <div class="footer__content">
-                    <h3 class="footer__title">Extended Areas</h3>
+                    <h3 class="footer__title">Service Areas</h3>
                     <ul class="footer__links">
-                        <li><a href="richmond-hill.html">Richmond Hill</a></li>
-                        <li><a href="oakville.html">Oakville</a></li>
-                        <li><a href="burlington.html">Burlington</a></li>
-                        <li><a href="ajax.html">Ajax & Durham</a></li>
-                        <li><a href="index.html">View All Areas</a></li>
+                        <li><a href="index.html">Greater Toronto Area</a></li>
+                        <li><a href="../contact.html">Schedule Service</a></li>
+                        <li><a href="../about.html">About Our Company</a></li>
+                        <li><a href="tel:+14373664067">Emergency: (437) 366-4067</a></li>
                     </ul>
                 </div>
 
@@ -546,7 +365,7 @@
                         </li>
                         <li style="margin-bottom: 0.5rem;">
                             <i class="fas fa-clock" style="margin-right: 0.5rem; color: var(--accent-red);"></i>
-                            <span>Professional HVAC Service</span>
+                            <span>24/7 Emergency Service</span>
                         </li>
                     </ul>
                 </div>
@@ -565,14 +384,5 @@
 
     <!-- JavaScript -->
     <script src="../assets/js/main.js"></script>
-    
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'GA_TRACKING_ID');
-    </script>
 </body>
 </html>

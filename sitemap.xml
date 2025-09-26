@@ -41,38 +41,9 @@
         <priority>0.7</priority>
     </url>
 
-    <!-- Residential Service Pages -->
+    <!-- Existing Service Pages -->
     <url>
-        <loc>https://coldforcemechanical.com/services/furnace-services.html</loc>
-        <lastmod>2024-01-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://coldforcemechanical.com/services/air-conditioning.html</loc>
-        <lastmod>2024-01-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://coldforcemechanical.com/services/water-heaters.html</loc>
-        <lastmod>2024-01-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://coldforcemechanical.com/services/ventilation.html</loc>
-        <lastmod>2024-01-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-
-    <!-- Commercial Service Pages -->
-    <url>
-        <loc>https://coldforcemechanical.com/services/commercial-hvac.html</loc>
+        <loc>https://coldforcemechanical.com/services/hvac-systems.html</loc>
         <lastmod>2024-01-01</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
@@ -85,20 +56,6 @@
         <priority>0.8</priority>
     </url>
 
-    <url>
-        <loc>https://coldforcemechanical.com/services/industrial.html</loc>
-        <lastmod>2024-01-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-
-    <url>
-        <loc>https://coldforcemechanical.com/services/maintenance.html</loc>
-        <lastmod>2024-01-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-
     <!-- Service Area Pages -->
     <url>
         <loc>https://coldforcemechanical.com/areas/</loc>
@@ -107,76 +64,6 @@
         <priority>0.7</priority>
     </url>
 
-    <url>
-        <loc>https://coldforcemechanical.com/areas/toronto.html</loc>
-        <lastmod>2024-01-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
 
-    <url>
-        <loc>https://coldforcemechanical.com/areas/mississauga.html</loc>
-        <lastmod>2024-01-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://coldforcemechanical.com/areas/brampton.html</loc>
-        <lastmod>2024-01-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://coldforcemechanical.com/areas/markham.html</loc>
-        <lastmod>2024-01-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-
-    <url>
-        <loc>https://coldforcemechanical.com/areas/vaughan.html</loc>
-        <lastmod>2024-01-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-
-    <url>
-        <loc>https://coldforcemechanical.com/areas/richmond-hill.html</loc>
-        <lastmod>2024-01-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-
-    <url>
-        <loc>https://coldforcemechanical.com/areas/oakville.html</loc>
-        <lastmod>2024-01-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-
-    <url>
-        <loc>https://coldforcemechanical.com/areas/burlington.html</loc>
-        <lastmod>2024-01-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-
-    <!-- Blog Section -->
-    <url>
-        <loc>https://coldforcemechanical.com/blog/</loc>
-        <lastmod>2024-01-01</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-    </url>
-
-    <!-- Quote System -->
-    <url>
-        <loc>https://coldforcemechanical.com/quote/</loc>
-        <lastmod>2024-01-01</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
 
 </urlset>
