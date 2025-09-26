@@ -100,11 +100,19 @@
   /* Hardware acceleration optimization */
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  /* Professional circular border */
+  border: 3px solid rgba(30, 64, 175, 0.3);
+  border-radius: 50%;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(5px);
 }
 
 .hero__logo-spin:hover {
   animation: logo-spin 2s linear infinite, logo-glow-pulse 1.5s ease-in-out infinite;
   transform: scale(1.05);
+  border-color: rgba(220, 38, 38, 0.4);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 /* Hero blob container optimizations */
