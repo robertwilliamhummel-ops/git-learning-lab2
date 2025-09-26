@@ -72,8 +72,8 @@
   --z-popover: 1050;
   --z-tooltip: 1060;
 }
-/* ===== HVAC FAN ANIMATIONS - ADVANCED 3D ===== */
-@keyframes hvac-spin {
+/* ===== COMPANY LOGO SPINNING ANIMATION ===== */
+@keyframes logo-spin {
   from {
     transform: rotate(0deg);
   }
@@ -82,87 +82,57 @@
   }
 }
 
-/* Enhanced 3D spinning with hardware acceleration - preserves translate */
-@keyframes hvac-spin-3d {
-  0% {
-    transform: translate(120px, 93px) rotate3d(0, 0, 1, 0deg);
-  }
-  100% {
-    transform: translate(120px, 93px) rotate3d(0, 0, 1, 360deg);
-  }
-}
-
-@keyframes hvac-glow-pulse {
+@keyframes logo-glow-pulse {
   0%, 100% {
-    filter: drop-shadow(0 0 8px rgba(30, 64, 175, 0.3));
+    filter: drop-shadow(0 0 10px rgba(30, 64, 175, 0.4));
   }
   50% {
-    filter: drop-shadow(0 0 12px rgba(220, 38, 38, 0.4));
+    filter: drop-shadow(0 0 20px rgba(220, 38, 38, 0.5));
   }
 }
 
-/* HVAC Fan Container - Advanced 3D Transform Context */
-.hvac-fan-container {
-  transform: scale(2) translateX(-18px);
+/* Hero Logo Spinning Animation */
+.hero__logo-spin {
+  animation: logo-spin 6s linear infinite, logo-glow-pulse 3s ease-in-out infinite;
   transform-origin: center center;
-  transform-style: preserve-3d;
-  perspective: 1000px;
-  will-change: transform;
-}
-
-/* Spinning blades animation - Enhanced 3D rotation */
-.hvac-blades-spin {
-  animation: hvac-spin-3d 4s linear infinite;
-  transform-origin: 0 0;
-  transform-style: preserve-3d;
-  will-change: transform;
-  backface-visibility: hidden;
+  will-change: transform, filter;
+  transition: all var(--transition-normal);
   /* Hardware acceleration optimization */
-  -webkit-transform-style: preserve-3d;
+  backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
 
-.hvac-blades-spin:hover {
-  animation: hvac-spin-3d 1.5s linear infinite;
+.hero__logo-spin:hover {
+  animation: logo-spin 2s linear infinite, logo-glow-pulse 1.5s ease-in-out infinite;
+  transform: scale(1.05);
 }
 
-
-/* Glow effect for entire fan container - Enhanced with 3D context */
-.hero__blob svg {
-  animation: hvac-glow-pulse 4s ease-in-out infinite;
-  will-change: filter;
-  transform-style: preserve-3d;
-}
-
-/* Advanced performance optimizations for 3D transforms */
+/* Hero blob container optimizations */
 .hero__blob {
-  transform-style: preserve-3d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   perspective: 1000px;
   -webkit-perspective: 1000px;
 }
 
-/* ===== RESPONSIVE HVAC FAN - ENHANCED 3D ===== */
+/* ===== RESPONSIVE LOGO SPINNING ===== */
 @media screen and (max-width: 768px) {
-  .hvac-blades-spin {
-    animation: hvac-spin-3d 3s linear infinite;
+  .hero__logo-spin {
+    animation: logo-spin 5s linear infinite, logo-glow-pulse 2.5s ease-in-out infinite;
+    max-width: 250px;
   }
   
-  .hvac-blades-spin:hover {
-    animation: hvac-spin-3d 2s linear infinite;
+  .hero__logo-spin:hover {
+    animation: logo-spin 3s linear infinite, logo-glow-pulse 2s ease-in-out infinite;
   }
 }
 
 @media screen and (max-width: 480px) {
-  .hvac-blades-spin {
-    animation: hvac-spin-3d 3.5s linear infinite;
+  .hero__logo-spin {
+    animation: logo-spin 4s linear infinite, logo-glow-pulse 2s ease-in-out infinite;
+    max-width: 200px;
   }
-}
-
-/* ===== PERFORMANCE OPTIMIZATIONS - ENHANCED 3D ===== */
-.hero__blob svg {
-  max-width: 100%;
-  height: auto;
-  transform-style: preserve-3d;
 }
 
 
