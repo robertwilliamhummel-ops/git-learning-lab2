@@ -137,6 +137,36 @@
   -webkit-perspective: 1000px;
 }
 
+/* ===== RESPONSIVE LOGO POSITIONING ===== */
+/* Mobile logo placement - shows in content flow */
+.hero__logo-mobile {
+  display: none; /* Hidden on desktop */
+  text-align: center;
+  margin: var(--spacing-xl) 0;
+}
+
+/* Desktop logo placement - shows on right side */
+.hero__logo-desktop {
+  display: block; /* Visible on desktop */
+}
+
+@media screen and (max-width: 1024px) {
+  /* Switch to mobile layout on tablets and phones */
+  .hero__logo-mobile {
+    display: block; /* Show mobile logo placement */
+  }
+  
+  .hero__logo-desktop {
+    display: none; /* Hide desktop logo placement */
+  }
+  
+  /* Adjust mobile logo size and spacing */
+  .hero__logo-mobile .hero__logo-spin {
+    max-width: 180px !important;
+    margin: 0 auto;
+  }
+}
+
 /* ===== RESPONSIVE LOGO SPINNING ===== */
 @media screen and (max-width: 768px) {
   .hero__logo-spin {
