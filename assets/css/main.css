@@ -496,6 +496,11 @@ a:hover {
   .nav__logo .mobile-hide {
     display: none;
   }
+  
+  /* Fix hero section overlap on mobile - increase top padding */
+  .hero {
+    padding-top: 140px; /* Increased from 120px to clear 70px fixed nav */
+  }
 }
 
 .nav__logo i {
