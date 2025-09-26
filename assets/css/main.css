@@ -496,6 +496,39 @@ a:hover {
   color: var(--accent-red);
 }
 
+/* Logo Image Styling - Professional Transparent NoBuffer Logo */
+.nav__logo img.logo-icon {
+  height: 3rem; /* Even bigger - was 2.5rem */
+  width: auto;
+  max-width: 3rem;
+  object-fit: contain;
+  transition: transform var(--transition-fast);
+  margin-right: var(--spacing-sm); /* CSS spacing control */
+}
+
+.nav__logo img.logo-icon:hover {
+  transform: scale(1.05);
+}
+
+/* Footer Logo Styling */
+.footer__logo img.logo-icon {
+  height: 3rem; /* Bigger footer logo */
+  width: auto;
+  max-width: 3rem;
+  object-fit: contain;
+  margin-right: var(--spacing-sm); /* CSS spacing control */
+}
+
+/* Content Area Logo Styling (for cards and special sections) */
+.card__icon img.logo-icon,
+.emergency-card img.logo-icon {
+  height: 3.5rem; /* Even larger for content areas */
+  width: auto;
+  max-width: 3.5rem;
+  object-fit: contain;
+  margin-right: var(--spacing-sm); /* CSS spacing control */
+}
+
 .nav__menu {
   display: flex;
   align-items: center;
