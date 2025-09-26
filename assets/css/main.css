@@ -160,9 +160,9 @@
     display: none; /* Hide desktop logo placement */
   }
   
-  /* Adjust mobile logo size and spacing */
+  /* Adjust mobile logo size and spacing - 1.5x bigger for better impact */
   .hero__logo-mobile .hero__logo-spin {
-    max-width: 180px !important;
+    max-width: 270px !important; /* Increased from 180px (1.5x bigger) */
     margin: 0 auto;
   }
 }
