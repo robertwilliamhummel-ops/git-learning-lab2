@@ -72,6 +72,99 @@
   --z-popover: 1050;
   --z-tooltip: 1060;
 }
+/* ===== HVAC FAN ANIMATIONS - ADVANCED 3D ===== */
+@keyframes hvac-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Enhanced 3D spinning with hardware acceleration - preserves translate */
+@keyframes hvac-spin-3d {
+  0% {
+    transform: translate(120px, 93px) rotate3d(0, 0, 1, 0deg);
+  }
+  100% {
+    transform: translate(120px, 93px) rotate3d(0, 0, 1, 360deg);
+  }
+}
+
+@keyframes hvac-glow-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px rgba(30, 64, 175, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 12px rgba(220, 38, 38, 0.4));
+  }
+}
+
+/* HVAC Fan Container - Advanced 3D Transform Context */
+.hvac-fan-container {
+  transform: scale(2) translateX(-18px);
+  transform-origin: center center;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  will-change: transform;
+}
+
+/* Spinning blades animation - Enhanced 3D rotation */
+.hvac-blades-spin {
+  animation: hvac-spin-3d 4s linear infinite;
+  transform-origin: 0 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+  backface-visibility: hidden;
+  /* Hardware acceleration optimization */
+  -webkit-transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+}
+
+.hvac-blades-spin:hover {
+  animation: hvac-spin-3d 1.5s linear infinite;
+}
+
+
+/* Glow effect for entire fan container - Enhanced with 3D context */
+.hero__blob svg {
+  animation: hvac-glow-pulse 4s ease-in-out infinite;
+  will-change: filter;
+  transform-style: preserve-3d;
+}
+
+/* Advanced performance optimizations for 3D transforms */
+.hero__blob {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+}
+
+/* ===== RESPONSIVE HVAC FAN - ENHANCED 3D ===== */
+@media screen and (max-width: 768px) {
+  .hvac-blades-spin {
+    animation: hvac-spin-3d 3s linear infinite;
+  }
+  
+  .hvac-blades-spin:hover {
+    animation: hvac-spin-3d 2s linear infinite;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .hvac-blades-spin {
+    animation: hvac-spin-3d 3.5s linear infinite;
+  }
+}
+
+/* ===== PERFORMANCE OPTIMIZATIONS - ENHANCED 3D ===== */
+.hero__blob svg {
+  max-width: 100%;
+  height: auto;
+  transform-style: preserve-3d;
+}
+
 
 /* ===== RESET & BASE STYLES ===== */
 * {
@@ -219,6 +312,46 @@ a:hover {
   box-shadow: var(--box-shadow-lg);
   color: var(--white);
   animation: none;
+
+.button--call {
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-red) 100%);
+  color: var(--white);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3), 0 0 40px rgba(239, 68, 68, 0.2);
+  animation: glow-pulse 2s ease-in-out infinite alternate;
+}
+
+.button--call:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.5), 0 0 60px rgba(239, 68, 68, 0.3), var(--box-shadow-lg);
+  color: var(--white);
+}
+
+@keyframes glow-pulse {
+  from {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3), 0 0 40px rgba(239, 68, 68, 0.2);
+  }
+  to {
+    box-shadow: 0 0 25px rgba(59, 130, 246, 0.4), 0 0 50px rgba(239, 68, 68, 0.3);
+  }
+}
+
+.call-btn {
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-red) 100%);
+  color: var(--white);
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all var(--transition-normal);
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.2), 0 0 30px rgba(239, 68, 68, 0.1);
+  animation: glow-pulse 2s ease-in-out infinite alternate;
+}
+
+.call-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.4), 0 0 40px rgba(239, 68, 68, 0.2);
+  color: var(--white);
+}
 }
 
 .button--outline {
