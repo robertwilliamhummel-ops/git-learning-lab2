@@ -497,9 +497,32 @@ a:hover {
     display: none;
   }
   
-  /* Fix hero section overlap on mobile - increase top padding */
-  .hero {
-    padding-top: 160px; /* Increased from 140px for better clearance */
+  /* ===== COMPREHENSIVE MOBILE HERO SECTION FIX ===== */
+  /* Fix persistent hero section overlap on mobile devices */
+  /* Uses multiple defensive strategies to ensure proper spacing */
+  
+  /* Primary fix: Override desktop padding with higher specificity */
+  .hero.section {
+    padding-top: calc(70px + 100px) !important; /* Navigation height + buffer */
+    padding-bottom: var(--spacing-4xl) !important;
+    margin-top: 0 !important; /* Reset any inherited margins */
+  }
+  
+  /* Secondary fix: Target hero container directly for extra safety */
+  .hero__container {
+    padding-top: 20px; /* Additional buffer for hero content */
+    margin-top: 0;
+  }
+  
+  /* Tertiary fix: Ensure hero title has proper top spacing */
+  .hero__title {
+    margin-top: 0;
+    padding-top: 10px; /* Small additional buffer */
+  }
+  
+  /* Modern mobile device support - Safe area insets for notched devices */
+  .hero.section {
+    padding-top: calc(70px + 100px + env(safe-area-inset-top, 0px)) !important;
   }
 }
 
@@ -841,6 +864,73 @@ a:hover {
   
   .section__title {
     font-size: var(--font-size-3xl);
+  }
+}
+
+/* ===== ADDITIONAL MOBILE BREAKPOINT TESTING ===== */
+/* Comprehensive mobile device support for hero section */
+
+/* Large tablets and small laptops (768px - 1024px) */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .hero {
+    padding-top: 140px; /* Slightly more padding for tablets */
+  }
+}
+
+/* Standard mobile phones (414px - 768px) */
+@media screen and (max-width: 414px) {
+  .hero.section {
+    padding-top: calc(70px + 110px + env(safe-area-inset-top, 0px)) !important;
+  }
+  
+  .hero__container {
+    padding-top: 25px; /* Extra buffer for smaller screens */
+  }
+  
+  .hero__title {
+    font-size: var(--font-size-3xl);
+    padding-top: 15px; /* More spacing on small screens */
+  }
+}
+
+/* Small mobile phones (375px and below) */
+@media screen and (max-width: 375px) {
+  .hero.section {
+    padding-top: calc(70px + 120px + env(safe-area-inset-top, 0px)) !important;
+  }
+  
+  .hero__container {
+    padding-top: 30px; /* Maximum buffer for smallest screens */
+  }
+  
+  .hero__title {
+    padding-top: 20px; /* Maximum spacing for tiny screens */
+  }
+}
+
+/* Very small mobile phones (320px and below) */
+@media screen and (max-width: 320px) {
+  .hero.section {
+    padding-top: calc(70px + 130px + env(safe-area-inset-top, 0px)) !important;
+  }
+  
+  .hero__container {
+    padding-top: 35px; /* Maximum buffer for legacy small screens */
+  }
+}
+
+/* Landscape orientation fixes for mobile devices */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+  .hero.section {
+    padding-top: calc(70px + 80px + env(safe-area-inset-top, 0px)) !important;
+  }
+  
+  .hero__container {
+    padding-top: 15px; /* Reduced padding in landscape */
+  }
+  
+  .hero__title {
+    padding-top: 5px; /* Minimal padding in landscape */
   }
 }
 
