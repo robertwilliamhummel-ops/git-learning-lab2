@@ -6,9 +6,9 @@
   --primary-blue: #1e40af;
   --primary-blue-light: #3b82f6;
   --primary-blue-dark: #1e3a8a;
-  --accent-red: #dc2626;
-  --accent-red-light: #ef4444;
-  --accent-red-dark: #b91c1c;
+  --accent-purple: #7c3aed;
+  --accent-purple-light: #a855f7;
+  --accent-purple-dark: #5b21b6;
   
   /* Neutral Colors */
   --white: #ffffff;
@@ -25,8 +25,8 @@
   
   /* Gradients */
   --gradient-primary: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-light) 100%);
-  --gradient-accent: linear-gradient(135deg, var(--accent-red) 0%, var(--accent-red-light) 100%);
-  --gradient-hero: linear-gradient(135deg, var(--primary-blue-dark) 0%, var(--primary-blue) 50%, var(--accent-red) 100%);
+  --gradient-accent: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-purple-light) 100%);
+  --gradient-hero: linear-gradient(135deg, var(--primary-blue-dark) 0%, var(--primary-blue) 50%, var(--accent-purple) 100%);
   
   /* Typography */
   --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -79,7 +79,9 @@
   .nav__logo-spin,
   .hero__logo-spin,
   .phone-icon,
-  .phone-cta {
+  .phone-cta,
+  .hero__fan-mobile .hvac-blades-spin,
+  .hero__fan-mobile .hero__fan-svg {
     animation: none !important;
   }
   
@@ -219,7 +221,7 @@
     filter: drop-shadow(0 0 10px rgba(30, 64, 175, 0.4));
   }
   50% {
-    filter: drop-shadow(0 0 20px rgba(220, 38, 38, 0.5));
+    filter: drop-shadow(0 0 20px rgba(124, 58, 237, 0.5));
   }
 }
 
@@ -249,7 +251,7 @@
 .hero__logo-spin.active-touch {
   animation: logo-spin 2s linear infinite, logo-glow-pulse 1.5s ease-in-out infinite;
   transform: scale(1.05);
-  border-color: rgba(220, 38, 38, 0.4);
+  border-color: rgba(124, 58, 237, 0.4);
   background: rgba(255, 255, 255, 0.1);
 }
 
@@ -315,6 +317,125 @@
   .hero__logo-spin {
     animation: logo-spin 4s linear infinite, logo-glow-pulse 2s ease-in-out infinite;
     max-width: 200px;
+  }
+}
+
+/* ===== MOBILE SPINNING FAN STYLES ===== */
+/* Mobile-only spinning fan positioned at top of hero section */
+.hero__fan-mobile {
+  display: none; /* Hidden on desktop */
+  text-align: center;
+  margin: var(--spacing-lg) 0 var(--spacing-xl) 0;
+  padding: 0;
+}
+
+.hero__fan-wrapper {
+  display: inline-block;
+  position: relative;
+}
+
+.hero__fan-svg {
+  width: 120px;
+  height: 120px;
+  max-width: 120px;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+/* Enhanced 3D spinning animation for mobile fan - optimized performance */
+@keyframes mobile-hvac-spin-3d {
+  0% {
+    transform: translate(120px, 93px) rotate3d(0, 0, 1, 0deg);
+  }
+  100% {
+    transform: translate(120px, 93px) rotate3d(0, 0, 1, 360deg);
+  }
+}
+
+/* Optimized glow animation for mobile fan - synchronized timing */
+@keyframes mobile-hvac-glow-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px rgba(30, 64, 175, 0.3));
+  }
+  50% {
+    filter: drop-shadow(0 0 12px rgba(220, 38, 38, 0.4));
+  }
+}
+
+/* Spinning blades animation - Enhanced 3D rotation for mobile */
+.hero__fan-mobile .hvac-blades-spin {
+  animation: mobile-hvac-spin-3d 4s linear infinite;
+  transform-origin: 0 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+  backface-visibility: hidden;
+  /* Hardware acceleration optimization */
+  -webkit-transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Glow effect for mobile fan - synchronized timing to prevent conflicts */
+.hero__fan-mobile .hero__fan-svg {
+  animation: mobile-hvac-glow-pulse 4s ease-in-out infinite;
+  will-change: filter;
+  transform-style: preserve-3d;
+}
+
+/* Hover effect for mobile fan */
+.hero__fan-mobile .hvac-blades-spin:hover {
+  animation: mobile-hvac-spin-3d 1.5s linear infinite;
+}
+
+/* Show mobile fan on tablets and phones */
+@media screen and (max-width: 1024px) {
+  .hero__fan-mobile {
+    display: block; /* Show mobile fan */
+  }
+}
+
+/* Mobile-specific fan sizing and positioning */
+@media screen and (max-width: 768px) {
+  .hero__fan-mobile {
+    margin: var(--spacing-md) 0 var(--spacing-lg) 0;
+  }
+  
+  .hero__fan-svg {
+    width: 100px;
+    height: 100px;
+    max-width: 100px;
+  }
+  
+  .hero__fan-mobile .hvac-blades-spin {
+    animation: mobile-hvac-spin-3d 5s linear infinite;
+  }
+  
+  .hero__fan-mobile .hvac-blades-spin:hover {
+    animation: mobile-hvac-spin-3d 2s linear infinite;
+  }
+}
+
+/* Small mobile phones */
+@media screen and (max-width: 480px) {
+  .hero__fan-mobile {
+    margin: var(--spacing-sm) 0 var(--spacing-md) 0;
+  }
+  
+  .hero__fan-svg {
+    width: 80px;
+    height: 80px;
+    max-width: 80px;
+  }
+  
+  .hero__fan-mobile .hvac-blades-spin {
+    animation: mobile-hvac-spin-3d 4s linear infinite;
+  }
+}
+
+/* Very small mobile phones */
+@media screen and (max-width: 375px) {
+  .hero__fan-svg {
+    width: 70px;
+    height: 70px;
+    max-width: 70px;
   }
 }
 
@@ -470,42 +591,42 @@ a:hover {
   animation: none;
 
 .button--call {
-  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-red) 100%);
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-purple) 100%);
   color: var(--white);
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3), 0 0 40px rgba(239, 68, 68, 0.2);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3), 0 0 40px rgba(168, 85, 247, 0.2);
   animation: glow-pulse 2s ease-in-out infinite alternate;
 }
 
 .button--call:hover {
   transform: translateY(-2px);
-  box-shadow: 0 0 30px rgba(59, 130, 246, 0.5), 0 0 60px rgba(239, 68, 68, 0.3), var(--box-shadow-lg);
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.5), 0 0 60px rgba(168, 85, 247, 0.3), var(--box-shadow-lg);
   color: var(--white);
 }
 
 @keyframes glow-pulse {
   from {
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3), 0 0 40px rgba(239, 68, 68, 0.2);
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3), 0 0 40px rgba(168, 85, 247, 0.2);
   }
   to {
-    box-shadow: 0 0 25px rgba(59, 130, 246, 0.4), 0 0 50px rgba(239, 68, 68, 0.3);
+    box-shadow: 0 0 25px rgba(59, 130, 246, 0.4), 0 0 50px rgba(168, 85, 247, 0.3);
   }
 }
 
 .call-btn {
-  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-red) 100%);
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-purple) 100%);
   color: var(--white);
   padding: 0.75rem 1.5rem;
   border-radius: var(--border-radius);
   text-decoration: none;
   font-weight: 600;
   transition: all var(--transition-normal);
-  box-shadow: 0 0 15px rgba(59, 130, 246, 0.2), 0 0 30px rgba(239, 68, 68, 0.1);
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.2), 0 0 30px rgba(168, 85, 247, 0.1);
   animation: glow-pulse 2s ease-in-out infinite alternate;
 }
 
 .call-btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.4), 0 0 40px rgba(239, 68, 68, 0.2);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.4), 0 0 40px rgba(168, 85, 247, 0.2);
   color: var(--white);
 }
 }
@@ -704,7 +825,7 @@ a:hover {
 .nav__logo-spin:hover {
   animation: logo-spin 2s linear infinite, logo-glow-pulse 1.5s ease-in-out infinite;
   transform: scale(1.1);
-  border-color: rgba(220, 38, 38, 0.4);
+  border-color: rgba(124, 58, 237, 0.4);
   background: rgba(255, 255, 255, 0.1);
 }
 
@@ -952,7 +1073,7 @@ a:hover {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 10px rgba(255, 255, 255, 0.2);
   }
   to {
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.4), 0 0 30px rgba(30, 64, 175, 0.3);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.4), 0 0 30px rgba(247, 147, 30, 0.3);
   }
 }
 
