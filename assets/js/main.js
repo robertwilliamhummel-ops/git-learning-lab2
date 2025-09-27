@@ -4,10 +4,12 @@
 class Navigation {
     constructor() {
         this.header = document.getElementById('header');
-        this.navMenu = document.getElementById('nav-menu');
+        this.navMenuLeft = document.getElementById('nav-menu-left');
+        this.navMenuRight = document.getElementById('nav-menu-right');
         this.navToggle = document.getElementById('nav-toggle');
         this.navLinks = document.querySelectorAll('.nav__link');
         this.scrollUp = document.getElementById('scroll-up');
+        this.mobileMenu = null; // Will be created dynamically
         
         this.init();
     }
@@ -21,12 +23,15 @@ class Navigation {
     
     setupMobileMenu() {
         if (this.navToggle) {
+            // Create mobile menu if it doesn't exist
+            this.createMobileMenu();
+            
             this.navToggle.addEventListener('click', () => {
-                this.navMenu.classList.toggle('show-menu');
+                this.mobileMenu.classList.toggle('show-menu');
                 
                 // Change hamburger icon
                 const icon = this.navToggle.querySelector('i');
-                if (this.navMenu.classList.contains('show-menu')) {
+                if (this.mobileMenu.classList.contains('show-menu')) {
                     icon.classList.replace('fa-bars', 'fa-times');
                 } else {
                     icon.classList.replace('fa-times', 'fa-bars');
@@ -37,13 +42,60 @@ class Navigation {
         // Close menu when clicking on nav links
         this.navLinks.forEach(link => {
             link.addEventListener('click', () => {
-                this.navMenu.classList.remove('show-menu');
+                if (this.mobileMenu) {
+                    this.mobileMenu.classList.remove('show-menu');
+                    const icon = this.navToggle?.querySelector('i');
+                    if (icon) {
+                        icon.classList.replace('fa-times', 'fa-bars');
+                    }
+                }
+            });
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (this.mobileMenu &&
+                this.mobileMenu.classList.contains('show-menu') &&
+                !this.navToggle.contains(e.target) &&
+                !this.mobileMenu.contains(e.target)) {
+                this.mobileMenu.classList.remove('show-menu');
                 const icon = this.navToggle?.querySelector('i');
                 if (icon) {
                     icon.classList.replace('fa-times', 'fa-bars');
                 }
-            });
+            }
         });
+    }
+    
+    createMobileMenu() {
+        // Create mobile menu container
+        this.mobileMenu = document.createElement('div');
+        this.mobileMenu.className = 'nav__menu nav__menu--mobile';
+        this.mobileMenu.id = 'nav-menu-mobile';
+        
+        // Create menu list
+        const menuList = document.createElement('ul');
+        menuList.className = 'nav__list';
+        
+        // Collect all nav links from left and right menus
+        const leftLinks = this.navMenuLeft?.querySelectorAll('.nav__link') || [];
+        const rightLinks = this.navMenuRight?.querySelectorAll('.nav__link') || [];
+        const allLinks = [...leftLinks, ...rightLinks];
+        
+        // Clone links to mobile menu
+        allLinks.forEach(link => {
+            const listItem = document.createElement('li');
+            listItem.className = 'nav__item';
+            const clonedLink = link.cloneNode(true);
+            listItem.appendChild(clonedLink);
+            menuList.appendChild(listItem);
+        });
+        
+        this.mobileMenu.appendChild(menuList);
+        document.body.appendChild(this.mobileMenu);
+        
+        // Update navLinks to include mobile menu links
+        this.navLinks = document.querySelectorAll('.nav__link');
     }
     
     setupScrollEffects() {
@@ -392,9 +444,9 @@ class MobileLogoInteraction {
         this.logo.addEventListener('click', (e) => this.handleClick(e));
     }
     
-    handleTouchStart(e) {
+    handleTouchStart(e, logo) {
         e.preventDefault();
-        this.logo.classList.add('active-touch');
+        logo.classList.add('active-touch');
         
         // Clear any existing timeout
         if (this.touchTimeout) {
@@ -402,19 +454,19 @@ class MobileLogoInteraction {
         }
     }
     
-    handleTouchEnd(e) {
+    handleTouchEnd(e, logo) {
         e.preventDefault();
         
         // Remove active state after 2 seconds
         this.touchTimeout = setTimeout(() => {
-            this.logo.classList.remove('active-touch');
+            logo.classList.remove('active-touch');
         }, 2000);
     }
     
-    handleClick(e) {
+    handleClick(e, logo) {
         // Only handle click on desktop (non-touch devices)
         if (!('ontouchstart' in window)) {
-            this.logo.classList.add('active-touch');
+            logo.classList.add('active-touch');
             
             // Clear any existing timeout
             if (this.touchTimeout) {
@@ -423,7 +475,7 @@ class MobileLogoInteraction {
             
             // Remove active state after 2 seconds
             this.touchTimeout = setTimeout(() => {
-                this.logo.classList.remove('active-touch');
+                logo.classList.remove('active-touch');
             }, 2000);
         }
     }

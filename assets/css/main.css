@@ -72,6 +72,138 @@
   --z-popover: 1050;
   --z-tooltip: 1060;
 }
+
+/* ===== ACCESSIBILITY & PERFORMANCE OPTIMIZATIONS ===== */
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .nav__logo-spin,
+  .hero__logo-spin,
+  .phone-icon,
+  .phone-cta {
+    animation: none !important;
+  }
+  
+  .top-phone-bar {
+    animation: none !important;
+  }
+  
+  .hero__company-name {
+    animation: none !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .top-phone-bar {
+    background: #000000;
+    border-bottom: 3px solid #ffffff;
+  }
+  
+  .phone-number {
+    background: #ffffff;
+    color: #000000;
+    border: 2px solid #000000;
+  }
+  
+  .nav__logo-spin,
+  .hero__logo-spin {
+    border-color: #ffffff;
+    background: #000000;
+  }
+}
+
+/* Focus indicators for keyboard navigation */
+.phone-number:focus,
+.nav__logo-spin:focus,
+.hero__logo-spin:focus {
+  outline: 3px solid #ffff00;
+  outline-offset: 2px;
+}
+
+/* ===== TOP PHONE BAR ===== */
+.top-phone-bar {
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #ff4757 100%);
+  color: var(--white);
+  padding: 0.75rem 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: calc(var(--z-fixed) + 10);
+  box-shadow: 0 2px 10px rgba(255, 107, 53, 0.3);
+  animation: phone-bar-glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes phone-bar-glow {
+  from {
+    box-shadow: 0 2px 10px rgba(255, 107, 53, 0.3);
+  }
+  to {
+    box-shadow: 0 2px 15px rgba(255, 107, 53, 0.5), 0 0 20px rgba(247, 147, 30, 0.3);
+  }
+}
+
+.phone-bar-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  font-weight: 600;
+  font-size: var(--font-size-lg);
+}
+
+.phone-icon {
+  font-size: 1.25rem;
+  animation: phone-pulse 2s ease-in-out infinite;
+}
+
+@keyframes phone-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.phone-text {
+  font-weight: 500;
+}
+
+.phone-number {
+  color: var(--white);
+  font-weight: 800;
+  font-size: 1.375rem;
+  text-decoration: none;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--border-radius);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(5px);
+  transition: all var(--transition-normal);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.phone-number:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+  color: var(--white);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.phone-cta {
+  font-weight: 700;
+  animation: cta-bounce 2s ease-in-out infinite;
+}
+
+@keyframes cta-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
 /* ===== COMPANY LOGO SPINNING ANIMATION ===== */
 @keyframes logo-spin {
   from {
@@ -489,7 +621,7 @@ a:hover {
 /* ===== HEADER & NAVIGATION ===== */
 .header {
   position: fixed;
-  top: 0;
+  top: 60px; /* Account for phone bar height */
   left: 0;
   width: 100%;
   background: rgba(255, 255, 255, 0.95);
@@ -500,10 +632,80 @@ a:hover {
 }
 
 .nav {
-  height: 70px; /* Reduced from 80px for better mobile appearance */
+  height: 100px; /* Increased from 70px to make it taller/fatter */
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+}
+
+/* ===== NEW NAVIGATION LAYOUT ===== */
+.nav__menu--left,
+.nav__menu--right {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.nav__menu--left {
+  justify-content: flex-start;
+}
+
+.nav__menu--right {
+  justify-content: flex-end;
+}
+
+.nav__logo-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 10;
+}
+
+.nav__company-name {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--primary-blue);
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.nav__logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav__logo-spin {
+  height: 60px;
+  width: 60px;
+  object-fit: contain;
+  animation: logo-spin 6s linear infinite, logo-glow-pulse 3s ease-in-out infinite;
+  transform-origin: center center;
+  will-change: transform, filter;
+  transition: all var(--transition-normal);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border: 2px solid rgba(30, 64, 175, 0.3);
+  border-radius: 50%;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(5px);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.nav__logo-spin:hover {
+  animation: logo-spin 2s linear infinite, logo-glow-pulse 1.5s ease-in-out infinite;
+  transform: scale(1.1);
+  border-color: rgba(220, 38, 38, 0.4);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .nav__logo {
@@ -533,7 +735,7 @@ a:hover {
   
   /* Primary fix: Override desktop padding with higher specificity */
   .hero.section {
-    padding-top: calc(70px + 24px) !important; /* Navigation height + 1 inch buffer (24px ≈ 1 inch at 96dpi) */
+    padding-top: calc(160px + 24px) !important; /* Phone bar (60px) + Navigation height (100px) + buffer (24px) */
     padding-bottom: var(--spacing-4xl) !important;
     margin-top: 0 !important; /* Reset any inherited margins */
   }
@@ -552,7 +754,72 @@ a:hover {
   
   /* Modern mobile device support - Safe area insets for notched devices */
   .hero.section {
-    padding-top: calc(70px + 24px + env(safe-area-inset-top, 0px)) !important;
+    padding-top: calc(160px + 24px + env(safe-area-inset-top, 0px)) !important;
+  }
+  
+  /* Mobile Navigation Adjustments */
+  .nav__company-name {
+    font-size: var(--font-size-xs);
+    letter-spacing: 0.5px;
+  }
+  
+  .nav__logo-spin {
+    height: 45px;
+    width: 45px;
+    padding: 6px;
+  }
+  
+  /* Mobile Phone Bar Adjustments */
+  .phone-bar-content {
+    font-size: var(--font-size-base);
+    gap: 0.5rem;
+  }
+  
+  .phone-number {
+    font-size: var(--font-size-lg);
+    padding: 0.125rem 0.5rem;
+  }
+  
+  .phone-text,
+  .phone-cta {
+    display: none; /* Hide extra text on mobile for cleaner look */
+  }
+  
+  /* Mobile Hero Company Name */
+  .hero__company-name {
+    font-size: var(--font-size-base);
+    letter-spacing: 1px;
+    margin-bottom: 0.75rem;
+  }
+  
+  /* Mobile Navigation Menu Adjustments */
+  .nav__menu--left,
+  .nav__menu--right {
+    display: none; /* Hide side menus on mobile */
+  }
+  
+  .nav__toggle {
+    display: block !important;
+    z-index: 20;
+  }
+  
+  /* Mobile menu overlay */
+  .nav__menu.show-menu {
+    position: fixed;
+    top: 160px; /* Below phone bar + nav */
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    padding: 2rem 0;
+    box-shadow: var(--box-shadow-lg);
+    z-index: 15;
+  }
+  
+  .nav__menu.show-menu .nav__list {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
   }
 }
 
@@ -658,9 +925,35 @@ a:hover {
 .hero {
   background: var(--gradient-hero);
   color: var(--white);
-  padding: 120px 0 var(--spacing-4xl);
+  padding: 180px 0 var(--spacing-4xl); /* Increased top padding to account for phone bar + nav */
   position: relative;
   overflow: hidden;
+}
+
+/* ===== HERO LOGO ENHANCEMENTS ===== */
+.hero__logo-wrapper {
+  text-align: center;
+  position: relative;
+}
+
+.hero__company-name {
+  font-size: var(--font-size-lg);
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  animation: company-name-glow 4s ease-in-out infinite alternate;
+}
+
+@keyframes company-name-glow {
+  from {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 10px rgba(255, 255, 255, 0.2);
+  }
+  to {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.4), 0 0 30px rgba(30, 64, 175, 0.3);
+  }
 }
 
 .hero::before {

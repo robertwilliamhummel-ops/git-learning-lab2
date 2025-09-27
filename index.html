@@ -71,15 +71,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Top Phone Bar -->
+    <div class="top-phone-bar">
+        <div class="container">
+            <div class="phone-bar-content">
+                <i class="fas fa-phone-alt phone-icon"></i>
+                <span class="phone-text">24/7 Emergency Service:</span>
+                <a href="tel:+14373664067" class="phone-number">(437) 366-4067</a>
+                <span class="phone-cta">Call Now!</span>
+            </div>
+        </div>
+    </div>
+
     <!-- Header -->
     <header class="header" id="header">
         <nav class="nav container">
-            <div class="nav__logo">
-                <img src="Logos/IconOnly_Transparent_NoBuffer.png" alt="Cold Force Mechanical Inc. Logo" class="logo-icon">
-                <span>Cold Force Mechanical<span class="mobile-hide"> Inc.</span></span>
-            </div>
-            
-            <div class="nav__menu" id="nav-menu">
+            <!-- Left Navigation Menu -->
+            <div class="nav__menu nav__menu--left" id="nav-menu-left">
                 <ul class="nav__list">
                     <li class="nav__item">
                         <a href="#home" class="nav__link active-link">Home</a>
@@ -90,6 +98,20 @@
                     <li class="nav__item">
                         <a href="areas/index.html" class="nav__link">Service Areas</a>
                     </li>
+                </ul>
+            </div>
+            
+            <!-- Centered Logo with Company Name -->
+            <div class="nav__logo-center">
+                <div class="nav__company-name">Cold Force Mechanical Inc.</div>
+                <div class="nav__logo-container">
+                    <img src="Logos/IconOnly_Transparent_NoBuffer.png" alt="Cold Force Mechanical Inc. Logo" class="nav__logo-spin">
+                </div>
+            </div>
+            
+            <!-- Right Navigation Menu -->
+            <div class="nav__menu nav__menu--right" id="nav-menu-right">
+                <ul class="nav__list">
                     <li class="nav__item">
                         <a href="about.html" class="nav__link">About</a>
                     </li>
@@ -98,7 +120,7 @@
                     </li>
                     <li class="nav__item">
                         <a href="tel:+14373664067" class="nav__link emergency-btn">
-                            <i class="fas fa-phone"></i> Emergency: (437) 366-4067
+                            <i class="fas fa-phone"></i> Emergency
                         </a>
                     </li>
                 </ul>
@@ -128,11 +150,14 @@
                     
                     <!-- Mobile Logo Placement - Shows after description, before buttons on mobile -->
                     <div class="hero__logo-mobile">
-                        <div class="hero__blob">
-                            <img src="Logos/IconOnly_Transparent_NoBuffer.png"
-                                 alt="Cold Force Mechanical Inc. Logo"
-                                 class="hero__logo-spin"
-                                 style="width: 100%; height: auto; max-width: 200px;">
+                        <div class="hero__logo-wrapper">
+                            <div class="hero__company-name">Cold Force Mechanical Inc.</div>
+                            <div class="hero__blob">
+                                <img src="Logos/IconOnly_Transparent_NoBuffer.png"
+                                     alt="Cold Force Mechanical Inc. Logo"
+                                     class="hero__logo-spin"
+                                     style="width: 100%; height: auto; max-width: 200px;">
+                            </div>
                         </div>
                     </div>
                     
@@ -164,11 +189,14 @@
                 
                 <!-- Desktop Logo Placement - Shows on right side on desktop -->
                 <div class="hero__image hero__logo-desktop">
-                    <div class="hero__blob">
-                        <img src="Logos/IconOnly_Transparent_NoBuffer.png"
-                             alt="Cold Force Mechanical Inc. Logo"
-                             class="hero__logo-spin"
-                             style="width: 100%; height: auto; max-width: 300px;">
+                    <div class="hero__logo-wrapper">
+                        <div class="hero__company-name">Cold Force Mechanical Inc.</div>
+                        <div class="hero__blob">
+                            <img src="Logos/IconOnly_Transparent_NoBuffer.png"
+                                 alt="Cold Force Mechanical Inc. Logo"
+                                 class="hero__logo-spin"
+                                 style="width: 100%; height: auto; max-width: 300px;">
+                        </div>
                     </div>
                 </div>
             </div>
