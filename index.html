@@ -86,11 +86,17 @@
     <!-- Header -->
     <header class="header" id="header">
         <nav class="nav container">
-            <!-- Left Navigation Menu -->
-            <div class="nav__menu nav__menu--left" id="nav-menu-left">
+            <div class="nav__logo">
+                <img src="Logos/IconOnly_Transparent_NoBuffer.png" alt="Cold Force Mechanical Inc. Logo" class="logo-icon">
+                <a href="index.html" style="color: inherit; text-decoration: none;">
+                    <span>Cold Force Mechanical<span class="mobile-hide"> Inc.</span></span>
+                </a>
+            </div>
+            
+            <div class="nav__menu" id="nav-menu">
                 <ul class="nav__list">
                     <li class="nav__item">
-                        <a href="#home" class="nav__link active-link">Home</a>
+                        <a href="index.html" class="nav__link active-link">Home</a>
                     </li>
                     <li class="nav__item">
                         <a href="services/index.html" class="nav__link">Services</a>
@@ -98,20 +104,6 @@
                     <li class="nav__item">
                         <a href="areas/index.html" class="nav__link">Service Areas</a>
                     </li>
-                </ul>
-            </div>
-            
-            <!-- Centered Logo with Company Name -->
-            <div class="nav__logo-center">
-                <div class="nav__company-name">Cold Force Mechanical Inc.</div>
-                <div class="nav__logo-container">
-                    <img src="Logos/IconOnly_Transparent_NoBuffer.png" alt="Cold Force Mechanical Inc. Logo" class="nav__logo-spin">
-                </div>
-            </div>
-            
-            <!-- Right Navigation Menu -->
-            <div class="nav__menu nav__menu--right" id="nav-menu-right">
-                <ul class="nav__list">
                     <li class="nav__item">
                         <a href="about.html" class="nav__link">About</a>
                     </li>
@@ -120,7 +112,7 @@
                     </li>
                     <li class="nav__item">
                         <a href="tel:+14373664067" class="nav__link emergency-btn">
-                            <i class="fas fa-phone"></i> Emergency
+                            <i class="fas fa-phone"></i> Emergency: (437) 366-4067
                         </a>
                     </li>
                 </ul>
@@ -136,115 +128,56 @@
     <main class="main">
         <!-- Hero Section -->
         <section class="hero section" id="home">
-            <div class="hero__container container grid">
-                <!-- Mobile-only Spinning Fan - First visual element below nav -->
-                <div class="hero__fan-mobile">
-                    <div class="hero__fan-wrapper">
-                        <svg class="hero__fan-svg" width="120" height="120" viewBox="0 0 240 186" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Gradient Definitions -->
-                            <defs>
-                                <linearGradient id="metalGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#e2e8f0;stop-opacity:1" />
-                                    <stop offset="50%" style="stop-color:#cbd5e1;stop-opacity:1" />
-                                    <stop offset="100%" style="stop-color:#94a3b8;stop-opacity:1" />
-                                </linearGradient>
-                                <radialGradient id="hubGradient" cx="50%" cy="50%" r="50%">
-                                    <stop offset="0%" style="stop-color:#f1f5f9;stop-opacity:1" />
-                                    <stop offset="70%" style="stop-color:#64748b;stop-opacity:1" />
-                                    <stop offset="100%" style="stop-color:#334155;stop-opacity:1" />
-                                </radialGradient>
-                            </defs>
+            <div class="hero__container container">
+                <!-- Desktop Layout Wrapper -->
+                <div class="hero__layout">
+                    <!-- Left Side - Text Content (60%) -->
+                    <div class="hero__content">
+                        <div class="hero__data">
+                            <h1 class="hero__title">
+                                Professional <span class="text-gradient">HVAC Solutions</span><br>
+                                for Greater Toronto Area
+                            </h1>
+                            <p class="hero__description">
+                                Cold Force Mechanical Inc. delivers expert heating, ventilation, air conditioning,
+                                and commercial refrigeration services. From reliable repairs to complete system
+                                installations, we keep your comfort and business running smoothly.
+                            </p>
                             
-                            <!-- Spinning Fan Blades Group -->
-                            <g class="hvac-blades-spin" transform="translate(120, 93)">
-                                <!-- Fan Blades - Realistic curved metal blades -->
-                                <!-- Blade 1 -->
-                                <path d="M0,-28 Q-8,-24 -18,-16 Q-22,-8 -20,0 Q-16,4 -8,2 Q-2,-2 0,0 Z"
-                                      fill="url(#metalGradient)" stroke="#2d3748" stroke-width="0.5" transform="rotate(0)"/>
-                                <!-- Blade 2 -->
-                                <path d="M0,-28 Q-8,-24 -18,-16 Q-22,-8 -20,0 Q-16,4 -8,2 Q-2,-2 0,0 Z"
-                                      fill="url(#metalGradient)" stroke="#2d3748" stroke-width="0.5" transform="rotate(60)"/>
-                                <!-- Blade 3 -->
-                                <path d="M0,-28 Q-8,-24 -18,-16 Q-22,-8 -20,0 Q-16,4 -8,2 Q-2,-2 0,0 Z"
-                                      fill="url(#metalGradient)" stroke="#2d3748" stroke-width="0.5" transform="rotate(120)"/>
-                                <!-- Blade 4 -->
-                                <path d="M0,-28 Q-8,-24 -18,-16 Q-22,-8 -20,0 Q-16,4 -8,2 Q-2,-2 0,0 Z"
-                                      fill="url(#metalGradient)" stroke="#2d3748" stroke-width="0.5" transform="rotate(180)"/>
-                                <!-- Blade 5 -->
-                                <path d="M0,-28 Q-8,-24 -18,-16 Q-22,-8 -20,0 Q-16,4 -8,2 Q-2,-2 0,0 Z"
-                                      fill="url(#metalGradient)" stroke="#2d3748" stroke-width="0.5" transform="rotate(240)"/>
-                                <!-- Blade 6 -->
-                                <path d="M0,-28 Q-8,-24 -18,-16 Q-22,-8 -20,0 Q-16,4 -8,2 Q-2,-2 0,0 Z"
-                                      fill="url(#metalGradient)" stroke="#2d3748" stroke-width="0.5" transform="rotate(300)"/>
-                            </g>
-                            
-                            <!-- Center Motor Hub -->
-                            <circle cx="120" cy="93" r="12" fill="url(#hubGradient)" stroke="#2d3748" stroke-width="2"/>
-                            <circle cx="120" cy="93" r="6" fill="#1e40af" stroke="#1e3a8a" stroke-width="1"/>
-                            <circle cx="120" cy="93" r="2" fill="#f1f5f9"/>
-                        </svg>
-                    </div>
-                </div>
-                
-                <div class="hero__data">
-                    <h1 class="hero__title">
-                        Professional <span class="text-gradient">HVAC Solutions</span><br>
-                        for Greater Toronto Area
-                    </h1>
-                    <p class="hero__description">
-                        Cold Force Mechanical Inc. delivers expert heating, ventilation, air conditioning,
-                        and commercial refrigeration services. From reliable repairs to complete system
-                        installations, we keep your comfort and business running smoothly.
-                    </p>
-                    
-                    <!-- Mobile Logo Placement - Shows after description, before buttons on mobile -->
-                    <div class="hero__logo-mobile">
-                        <div class="hero__logo-wrapper">
-                            <div class="hero__company-name">Cold Force Mechanical Inc.</div>
-                            <div class="hero__blob">
-                                <img src="Logos/IconOnly_Transparent_NoBuffer.png"
-                                     alt="Cold Force Mechanical Inc. Logo"
-                                     class="hero__logo-spin"
-                                     style="width: 100%; height: auto; max-width: 200px;">
+                            <div class="hero__buttons">
+                                <a href="contact.html" class="button button--primary">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    Schedule Service
+                                </a>
+                                <a href="tel:+14373664067" class="button button--call">
+                                    <i class="fas fa-phone"></i>
+                                    Call Us
+                                </a>
+                            </div>
+                            <div class="hero__stats">
+                                <div class="stat">
+                                    <span class="stat__number">15+</span>
+                                    <span class="stat__text">Years Experience</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat__number">24/7</span>
+                                    <span class="stat__text">Service Available</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat__number">100%</span>
+                                    <span class="stat__text">Licensed & Insured</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="hero__buttons">
-                        <a href="contact.html" class="button button--primary">
-                            <i class="fas fa-calendar-alt"></i>
-                            Schedule Service
-                        </a>
-                        <a href="tel:+14373664067" class="button button--call">
-                            <i class="fas fa-phone"></i>
-                            Call Us
-                        </a>
-                    </div>
-                    <div class="hero__stats">
-                        <div class="stat">
-                            <span class="stat__number">15+</span>
-                            <span class="stat__text">Years Experience</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat__number">24/7</span>
-                            <span class="stat__text">Service Available</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat__number">100%</span>
-                            <span class="stat__text">Licensed & Insured</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Desktop Logo Placement - Shows on right side on desktop -->
-                <div class="hero__image hero__logo-desktop">
-                    <div class="hero__logo-wrapper">
-                        <div class="hero__company-name">Cold Force Mechanical Inc.</div>
-                        <div class="hero__blob">
+                    <!-- Right Side - Spinning Logo (40%) - Desktop Only -->
+                    <div class="hero__logo-container">
+                        <div class="hero__logo-wrapper">
                             <img src="Logos/IconOnly_Transparent_NoBuffer.png"
                                  alt="Cold Force Mechanical Inc. Logo"
                                  class="hero__logo-spin"
-                                 style="width: 100%; height: auto; max-width: 300px;">
+                                 loading="lazy">
                         </div>
                     </div>
                 </div>

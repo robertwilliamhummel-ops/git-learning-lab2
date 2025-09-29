@@ -425,58 +425,557 @@ class QuoteCalculator {
     }
 }
 
-// ===== MOBILE LOGO INTERACTION =====
-class MobileLogoInteraction {
+// ===== REDESIGNED LOGO INTERACTION SYSTEM =====
+class LogoInteraction {
     constructor() {
-        this.logo = document.querySelector('.hero__logo-spin');
-        this.touchTimeout = null;
+        this.logos = document.querySelectorAll('.hero__logo-spin');
+        this.logoStates = new Map();
+        this.animationFrameId = null;
+        this.isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        this.lastTouchTime = 0;
+        
+        // REDESIGNED: Stable, predictable parameters
+        this.baseRotationSpeed = 1.0; // degrees per frame (60 degrees/second at 60fps)
+        this.hoverSpeedMultiplier = 1.5; // hover increases speed by 50%
+        this.maxRotationSpeed = 4.0; // strict maximum to prevent speed spikes
+        this.mouseSensitivity = 0.03; // fine-tuned for responsive but stable control
+        this.touchSensitivity = 0.05;
+        this.smoothingFactor = 0.12; // balanced smoothing for stability and responsiveness
+        this.deadZone = 2; // minimum pixel movement to register
+        this.velocityDecay = 0.88; // aggressive decay to prevent buildup
+        
+        // Debug mode for troubleshooting
+        this.debugMode = false; // Direct speed assignment implemented
+        
         this.init();
     }
     
     init() {
-        if (!this.logo) return;
+        console.log('LogoInteraction: Starting initialization...');
+        console.log('LogoInteraction: Found logos:', this.logos.length);
         
-        // Touch events for mobile
-        this.logo.addEventListener('touchstart', (e) => this.handleTouchStart(e));
-        this.logo.addEventListener('touchend', (e) => this.handleTouchEnd(e));
+        if (!this.logos.length) {
+            console.error('LogoInteraction: NO LOGO ELEMENTS FOUND! Selector: .hero__logo-spin');
+            // Try alternative selectors
+            const altLogos = document.querySelectorAll('img[alt*="Logo"], .logo, [class*="logo"]');
+            console.log('LogoInteraction: Alternative logo elements found:', altLogos.length, altLogos);
+            return;
+        }
         
-        // Click events for desktop fallback
-        this.logo.addEventListener('click', (e) => this.handleClick(e));
+        this.logos.forEach((logo, index) => {
+            try {
+                console.log(`LogoInteraction: Initializing logo ${index}:`, logo);
+                
+                // SIMPLIFIED: Basic state initialization
+                this.logoStates.set(logo, {
+                    currentRotation: 0,
+                    rotationSpeed: this.baseRotationSpeed,
+                    targetRotationSpeed: this.baseRotationSpeed,
+                    isControlled: false,
+                    isHovering: false,
+                    velocity: 0,
+                    lastMouseX: 0,
+                    lastMouseY: 0,
+                    lastTime: performance.now(),
+                    elementIndex: index
+                });
+                
+                // CRITICAL: Completely disable CSS animation
+                logo.style.animation = 'none !important';
+                logo.style.webkitAnimation = 'none !important';
+                logo.style.transform = 'rotate(0deg) scale(1)';
+                
+                // CRITICAL: Ensure mouse events can reach the element
+                logo.style.pointerEvents = 'auto';
+                logo.style.userSelect = 'none';
+                logo.style.webkitUserSelect = 'none';
+                
+                // Add SIMPLE event listeners for immediate testing
+                logo.addEventListener('mouseenter', (e) => {
+                    console.log('MOUSE ENTER detected on logo', index);
+                    this.handleMouseEnter(e, logo);
+                });
+                
+                logo.addEventListener('mousemove', (e) => {
+                    console.log('MOUSE MOVE detected on logo', index, 'X:', e.clientX);
+                    this.handleMouseMove(e, logo);
+                });
+                
+                logo.addEventListener('mouseleave', (e) => {
+                    console.log('MOUSE LEAVE detected on logo', index);
+                    this.handleMouseLeave(e, logo);
+                });
+                
+                console.log(`LogoInteraction: Successfully initialized logo ${index}`);
+                
+                // DIAGNOSTIC: Test if element is actually clickable
+                logo.addEventListener('click', () => {
+                    console.log('🎯 CLICK TEST: Logo is clickable - mouse events should work!');
+                });
+                
+                // DIAGNOSTIC: Check element positioning and visibility
+                const rect = logo.getBoundingClientRect();
+                const computedStyle = window.getComputedStyle(logo);
+                console.log('🔍 DIAGNOSTIC - Logo element analysis:');
+                console.log('  Position:', { x: rect.x, y: rect.y, width: rect.width, height: rect.height });
+                console.log('  Visibility:', computedStyle.visibility);
+                console.log('  Display:', computedStyle.display);
+                console.log('  Pointer Events:', computedStyle.pointerEvents);
+                console.log('  Z-Index:', computedStyle.zIndex);
+                console.log('  Position Type:', computedStyle.position);
+                
+                // DIAGNOSTIC: Check for overlapping elements at logo center
+                const centerX = rect.x + rect.width / 2;
+                const centerY = rect.y + rect.height / 2;
+                const elementAtCenter = document.elementFromPoint(centerX, centerY);
+                console.log('🎯 CRITICAL: Element at logo center:', elementAtCenter);
+                console.log('  Is it the logo itself?', elementAtCenter === logo);
+                if (elementAtCenter !== logo) {
+                    console.log('  ❌ PROBLEM FOUND: Another element is covering the logo!');
+                    console.log('  Covering element classes:', elementAtCenter?.className);
+                    console.log('  Covering element tag:', elementAtCenter?.tagName);
+                } else {
+                    console.log('  ✅ Logo is accessible at its center point');
+                }
+                
+            } catch (error) {
+                console.error(`LogoInteraction: Failed to initialize logo ${index}:`, error);
+            }
+        });
+        
+        // Start the animation loop
+        this.startAnimationLoop();
+        
+        console.log('LogoInteraction: System fully initialized');
     }
     
-    handleTouchStart(e, logo) {
-        e.preventDefault();
-        logo.classList.add('active-touch');
-        
-        // Clear any existing timeout
-        if (this.touchTimeout) {
-            clearTimeout(this.touchTimeout);
+    addEventListeners(logo) {
+        try {
+            // Mouse events with proper error handling
+            logo.addEventListener('mouseenter', (e) => this.handleMouseEnter(e, logo), { passive: true });
+            logo.addEventListener('mousemove', (e) => this.handleMouseMove(e, logo), { passive: true });
+            logo.addEventListener('mouseleave', (e) => this.handleMouseLeave(e, logo), { passive: true });
+            
+            // Touch events with passive false for preventDefault
+            logo.addEventListener('touchstart', (e) => this.handleTouchStart(e, logo), { passive: false });
+            logo.addEventListener('touchmove', (e) => this.handleTouchMove(e, logo), { passive: false });
+            logo.addEventListener('touchend', (e) => this.handleTouchEnd(e, logo), { passive: false });
+            
+            // Additional safety events
+            logo.addEventListener('dragstart', (e) => e.preventDefault());
+            logo.addEventListener('selectstart', (e) => e.preventDefault());
+            
+        } catch (error) {
+            console.error('LogoInteraction: Failed to add event listeners:', error);
         }
     }
     
-    handleTouchEnd(e, logo) {
-        e.preventDefault();
+    // SIMPLIFIED: Basic mouse enter for immediate functionality
+    handleMouseEnter(e, logo) {
+        console.log('handleMouseEnter called');
         
-        // Remove active state after 2 seconds
-        this.touchTimeout = setTimeout(() => {
-            logo.classList.remove('active-touch');
-        }, 2000);
+        const state = this.logoStates.get(logo);
+        if (!state) {
+            console.error('No state found for logo');
+            return;
+        }
+        
+        // Simple hover state
+        state.isControlled = true;
+        state.isHovering = true;
+        state.lastMouseX = e.clientX;
+        state.lastMouseY = e.clientY;
+        
+        // Increase speed on hover
+        state.targetRotationSpeed = this.baseRotationSpeed * 2; // Double speed on hover
+        
+        console.log(`Mouse entered - new target speed: ${state.targetRotationSpeed}`);
+        
+        // Visual feedback
+        logo.classList.add('logo-controlled');
+        logo.classList.remove('logo-idle');
     }
     
-    handleClick(e, logo) {
-        // Only handle click on desktop (non-touch devices)
-        if (!('ontouchstart' in window)) {
-            logo.classList.add('active-touch');
+    // SIMPLIFIED: Basic mouse movement for immediate functionality
+    handleMouseMove(e, logo) {
+        const state = this.logoStates.get(logo);
+        if (!state || !state.isHovering) return;
+        
+        // Calculate horizontal movement
+        const deltaX = e.clientX - state.lastMouseX;
+        
+        console.log(`Mouse move - deltaX: ${deltaX}`);
+        
+        // FIXED: Better movement detection for all speeds
+        if (Math.abs(deltaX) > 0.5) { // Lower dead zone threshold
+            // Clamp deltaX to prevent extreme values from fast movements
+            const clampedDeltaX = Math.max(-50, Math.min(50, deltaX));
             
-            // Clear any existing timeout
-            if (this.touchTimeout) {
-                clearTimeout(this.touchTimeout);
+            if (clampedDeltaX > 0) {
+                // Moving right = faster clockwise
+                state.targetRotationSpeed = this.baseRotationSpeed * 3;
+                console.log('Moving RIGHT - clockwise speed:', state.targetRotationSpeed, 'deltaX:', clampedDeltaX);
+            } else {
+                // Moving left = faster counter-clockwise
+                state.targetRotationSpeed = -this.baseRotationSpeed * 3;
+                console.log('Moving LEFT - counter-clockwise speed:', state.targetRotationSpeed, 'deltaX:', clampedDeltaX);
+            }
+        } else {
+            // No significant movement - return to hover speed
+            state.targetRotationSpeed = this.baseRotationSpeed * 2;
+            console.log('No movement - hover speed:', state.targetRotationSpeed);
+        }
+        
+        // Update tracking
+        state.lastMouseX = e.clientX;
+        state.lastMouseY = e.clientY;
+    }
+    
+    // ENHANCED: Mouse leave with direction persistence
+    handleMouseLeave(e, logo) {
+        const state = this.logoStates.get(logo);
+        if (!state) return;
+        
+        // Reset interaction state
+        state.isControlled = false;
+        state.isHovering = false;
+        
+        // MOMENTUM: Continue spinning in the last direction
+        if (state.rotationSpeed > 0) {
+            // Was spinning clockwise - continue clockwise at base speed
+            state.targetRotationSpeed = this.baseRotationSpeed;
+        } else if (state.rotationSpeed < 0) {
+            // Was spinning counter-clockwise - continue counter-clockwise at base speed
+            state.targetRotationSpeed = -this.baseRotationSpeed;
+        } else {
+            // Default to clockwise
+            state.targetRotationSpeed = this.baseRotationSpeed;
+        }
+        
+        // Visual feedback
+        logo.classList.remove('logo-controlled');
+        logo.classList.add('logo-idle');
+    }
+    
+    // REDESIGNED: Robust touch control with stability features
+    handleTouchStart(e, logo) {
+        try {
+            e.preventDefault();
+            this.lastTouchTime = performance.now();
+            
+            const state = this.logoStates.get(logo);
+            if (!state || !e.touches.length) return;
+            
+            const touch = e.touches[0];
+            
+            // Initialize touch state
+            state.isControlled = true;
+            state.rect = logo.getBoundingClientRect();
+            state.lastTouchX = touch.clientX;
+            state.lastTouchY = touch.clientY;
+            state.lastTime = performance.now();
+            
+            // Reset velocity tracking
+            state.velocity = 0;
+            state.velocityHistory = [0, 0, 0];
+            state.consecutiveSmallMovements = 0;
+            
+            // Touch base speed (faster than hover, slower than old version)
+            state.targetRotationSpeed = this.baseRotationSpeed * 1.8;
+            
+            // Update visual state
+            logo.classList.add('logo-controlled');
+            logo.classList.remove('logo-idle');
+            
+            if (this.debugMode) {
+                console.log(`Touch started on logo ${state.elementIndex}`);
             }
             
-            // Remove active state after 2 seconds
-            this.touchTimeout = setTimeout(() => {
-                logo.classList.remove('active-touch');
-            }, 2000);
+        } catch (error) {
+            console.error('LogoInteraction: Error in handleTouchStart:', error);
+        }
+    }
+    
+    // REDESIGNED: Stable touch movement with horizontal priority
+    handleTouchMove(e, logo) {
+        try {
+            e.preventDefault();
+            const state = this.logoStates.get(logo);
+            if (!state || !state.isControlled || !state.rect || !e.touches.length) return;
+            
+            const touch = e.touches[0];
+            const currentTime = performance.now();
+            const deltaTime = Math.max(currentTime - state.lastTime, 16);
+            
+            // Calculate movement
+            const deltaX = touch.clientX - state.lastTouchX;
+            const deltaY = touch.clientY - state.lastTouchY;
+            const horizontalDistance = Math.abs(deltaX);
+            const verticalDistance = Math.abs(deltaY);
+            
+            // REDESIGNED: Prioritize horizontal movement with dead zone
+            if (horizontalDistance > this.deadZone && horizontalDistance > verticalDistance * 0.6) {
+                // Significant horizontal movement
+                const rawVelocity = (deltaX / deltaTime) * this.touchSensitivity;
+                
+                // Update velocity history for smoothing
+                state.velocityHistory.push(rawVelocity);
+                if (state.velocityHistory.length > 3) {
+                    state.velocityHistory.shift();
+                }
+                
+                // Calculate smoothed velocity
+                const weights = [0.2, 0.3, 0.5];
+                state.velocity = state.velocityHistory.reduce((sum, vel, index) => {
+                    return sum + (vel * weights[index]);
+                }, 0);
+                
+                state.consecutiveSmallMovements = 0;
+            } else {
+                // Small or vertical movement - decay velocity
+                state.consecutiveSmallMovements++;
+                state.velocity *= this.velocityDecay;
+            }
+            
+            // REDESIGNED: Conservative speed calculation
+            const touchBaseSpeed = this.baseRotationSpeed * 1.8;
+            const velocityInfluence = Math.max(-2.5, Math.min(2.5, state.velocity * 4)); // Controlled influence
+            
+            state.targetRotationSpeed = touchBaseSpeed + velocityInfluence;
+            
+            // CRITICAL: Strict speed clamping
+            state.targetRotationSpeed = Math.max(-this.maxRotationSpeed, Math.min(this.maxRotationSpeed, state.targetRotationSpeed));
+            
+            // Update tracking
+            state.lastTouchX = touch.clientX;
+            state.lastTouchY = touch.clientY;
+            state.lastTime = currentTime;
+            
+            // Update visual feedback
+            const speedRatio = Math.abs(state.targetRotationSpeed) / this.maxRotationSpeed;
+            const direction = state.targetRotationSpeed > 0 ? 1 : -1;
+            this.updateVisualFeedback(logo, speedRatio, direction);
+            
+            if (this.debugMode && horizontalDistance > this.deadZone) {
+                console.log(`Touch move - Speed: ${state.targetRotationSpeed.toFixed(2)}, Velocity: ${state.velocity.toFixed(3)}`);
+            }
+            
+        } catch (error) {
+            console.error('LogoInteraction: Error in handleTouchMove:', error);
+        }
+    }
+    
+    // REDESIGNED: Clean touch end with proper state reset
+    handleTouchEnd(e, logo) {
+        try {
+            e.preventDefault();
+            const state = this.logoStates.get(logo);
+            if (!state) return;
+            
+            // Reset interaction state
+            state.isControlled = false;
+            
+            // Return to base rotation speed
+            state.targetRotationSpeed = this.baseRotationSpeed;
+            
+            // Reset velocity tracking
+            state.velocity = 0;
+            state.velocityHistory = [0, 0, 0];
+            state.consecutiveSmallMovements = 0;
+            
+            // Update visual state
+            logo.classList.remove('logo-controlled');
+            logo.classList.add('logo-idle');
+            
+            if (this.debugMode) {
+                console.log(`Touch ended on logo ${state.elementIndex}`);
+            }
+            
+        } catch (error) {
+            console.error('LogoInteraction: Error in handleTouchEnd:', error);
+        }
+    }
+    
+    // REDESIGNED: Enhanced visual feedback with stability controls
+    updateVisualFeedback(logo, speedFactor, direction) {
+        try {
+            // Remove all speed classes first
+            logo.classList.remove('logo-fast-forward', 'logo-fast-reverse', 'logo-medium-speed');
+            
+            // Add appropriate class based on speed and direction with hysteresis
+            if (speedFactor > 0.65) {
+                if (direction > 0) {
+                    logo.classList.add('logo-fast-forward');
+                } else {
+                    logo.classList.add('logo-fast-reverse');
+                }
+            } else if (speedFactor > 0.35) {
+                logo.classList.add('logo-medium-speed');
+            }
+            
+            // Update CSS custom properties for dynamic effects
+            logo.style.setProperty('--logo-glow-intensity', Math.max(0.3, Math.min(1, speedFactor * 0.6 + 0.3)).toFixed(2));
+            logo.style.setProperty('--logo-scale', (1 + speedFactor * 0.05).toFixed(3));
+            logo.style.setProperty('--logo-border-opacity', Math.max(0.2, Math.min(0.8, speedFactor * 0.4 + 0.2)).toFixed(2));
+            
+        } catch (error) {
+            console.error('LogoInteraction: Error in updateVisualFeedback:', error);
+        }
+    }
+    
+    // Utility easing functions for smooth animations
+    easeOutCubic(t) {
+        return 1 - Math.pow(1 - t, 3);
+    }
+    
+    easeOutQuad(t) {
+        return 1 - (1 - t) * (1 - t);
+    }
+    
+    easeInOutCubic(t) {
+        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+    
+    // REDESIGNED: Performance-optimized animation loop with direct transform control
+    startAnimationLoop() {
+        if (this.animationFrameId) {
+            cancelAnimationFrame(this.animationFrameId);
+        }
+        
+        let lastFrameTime = performance.now();
+        let frameCount = 0;
+        let fpsCheckTime = lastFrameTime;
+        
+        const animate = (currentTime) => {
+            try {
+                // Calculate frame timing
+                const deltaTime = currentTime - lastFrameTime;
+                lastFrameTime = currentTime;
+                
+                // FPS monitoring for debugging
+                frameCount++;
+                if (this.debugMode && currentTime - fpsCheckTime > 1000) {
+                    const fps = Math.round(frameCount * 1000 / (currentTime - fpsCheckTime));
+                    if (fps < 55) {
+                        console.warn(`LogoInteraction: Low FPS detected: ${fps}`);
+                    }
+                    frameCount = 0;
+                    fpsCheckTime = currentTime;
+                }
+                
+                // Update all logos
+                this.updateAnimation(deltaTime);
+                
+                // Continue animation loop
+                this.animationFrameId = requestAnimationFrame(animate);
+                
+            } catch (error) {
+                console.error('LogoInteraction: Error in animation loop:', error);
+                // Restart animation loop after error
+                setTimeout(() => this.startAnimationLoop(), 100);
+            }
+        };
+        
+        // Start the animation loop
+        this.animationFrameId = requestAnimationFrame(animate);
+        
+        if (this.debugMode) {
+            console.log('LogoInteraction: Animation loop started');
+        }
+    }
+    
+    // REDESIGNED: Core animation update with direct transform control
+    updateAnimation(deltaTime = 16) {
+        this.logos.forEach((logo) => {
+            try {
+                const state = this.logoStates.get(logo);
+                if (!state) return;
+                
+                // REVOLUTIONARY: Direct speed assignment - no interpolation delays!
+                if (state.isControlled) {
+                    // IMMEDIATE response when controlled - set speed directly
+                    state.rotationSpeed = state.targetRotationSpeed;
+                } else {
+                    // Smooth return to base speed when not controlled
+                    const speedDiff = state.targetRotationSpeed - state.rotationSpeed;
+                    state.rotationSpeed += speedDiff * 0.1;
+                }
+                
+                // SIMPLE: Single safety clamp
+                state.rotationSpeed = Math.max(-this.maxRotationSpeed, Math.min(this.maxRotationSpeed, state.rotationSpeed));
+                
+                // CRITICAL: Direct transform rotation (no CSS animation conflict)
+                state.currentRotation += state.rotationSpeed;
+                
+                // Normalize rotation to prevent precision issues
+                if (state.currentRotation >= 360) {
+                    state.currentRotation -= 360;
+                } else if (state.currentRotation < 0) {
+                    state.currentRotation += 360;
+                }
+                
+                // CRITICAL: Apply rotation directly via transform (this is the key fix)
+                logo.style.transform = `rotate(${state.currentRotation.toFixed(1)}deg)`;
+                
+                // Debug output every 60 frames (1 second at 60fps)
+                if (Math.floor(state.currentRotation) % 60 === 0) {
+                    console.log(`Logo ${state.elementIndex} - Rotation: ${state.currentRotation.toFixed(1)}°, Speed: ${state.rotationSpeed.toFixed(2)}°/frame, Target: ${state.targetRotationSpeed.toFixed(2)}°/frame, Controlled: ${state.isControlled}, Hovering: ${state.isHovering}`);
+                }
+                
+                // Update visual feedback properties
+                const speedRatio = Math.abs(state.rotationSpeed) / this.maxRotationSpeed;
+                const glowIntensity = Math.max(0.3, Math.min(1, speedRatio * 0.5 + 0.3));
+                logo.style.setProperty('--logo-glow-intensity', glowIntensity.toFixed(2));
+                
+                // REDESIGNED: Aggressive velocity decay to prevent buildup
+                if (!state.isControlled && Math.abs(state.velocity) > 0.001) {
+                    state.velocity *= 0.82; // More aggressive decay
+                    
+                    // Reset velocity if it becomes negligible
+                    if (Math.abs(state.velocity) < 0.001) {
+                        state.velocity = 0;
+                        state.velocityHistory = [0, 0, 0];
+                    }
+                }
+                
+            } catch (error) {
+                console.error(`LogoInteraction: Error updating logo ${logo}:`, error);
+            }
+        });
+    }
+    
+    // REDESIGNED: Enhanced cleanup with comprehensive state reset
+    destroy() {
+        try {
+            // Cancel animation frame
+            if (this.animationFrameId) {
+                cancelAnimationFrame(this.animationFrameId);
+                this.animationFrameId = null;
+            }
+            
+            // Clean up all logo states
+            this.logoStates.forEach((state, logo) => {
+                // Clear any timeouts
+                if (state.idleTimeout) {
+                    clearTimeout(state.idleTimeout);
+                }
+                
+                // Reset logo to initial state
+                logo.style.animation = '';
+                logo.style.transform = 'rotate(0deg) scale(1)';
+                logo.classList.remove('logo-controlled', 'logo-fast-forward', 'logo-fast-reverse', 'logo-medium-speed');
+                logo.classList.add('logo-idle');
+            });
+            
+            // Clear state map
+            this.logoStates.clear();
+            
+            if (this.debugMode) {
+                console.log('LogoInteraction: System destroyed and cleaned up');
+            }
+            
+        } catch (error) {
+            console.error('LogoInteraction: Error during cleanup:', error);
         }
     }
 }
@@ -489,7 +988,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new AnimationController();
     new EmergencyCallTracker();
     new QuoteCalculator();
-    new MobileLogoInteraction();
+    new LogoInteraction();
     
     // Add loading animation
     document.body.classList.add('loaded');
