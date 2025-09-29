@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mobile Menu Debug Test</title>
+</head>
+<body>
+    <script>
+        // Test the exact same logic as main.js
+        console.log('=== MOBILE MENU DEBUG ===');
+        
+        const navMenuLeft = document.getElementById('nav-menu-left');
+        const navMenuRight = document.getElementById('nav-menu-right');
+        const navMenu = document.getElementById('nav-menu');
+        
+        console.log('nav-menu-left found:', navMenuLeft);
+        console.log('nav-menu-right found:', navMenuRight);
+        console.log('nav-menu found:', navMenu);
+        
+        const leftLinks = navMenuLeft?.querySelectorAll('.nav__link') || [];
+        const rightLinks = navMenuRight?.querySelectorAll('.nav__link') || [];
+        const allLinks = [...leftLinks, ...rightLinks];
+        
+        console.log('Left links found:', leftLinks.length);
+        console.log('Right links found:', rightLinks.length);
+        console.log('Total links for mobile menu:', allLinks.length);
+        
+        if (navMenu) {
+            const actualLinks = navMenu.querySelectorAll('.nav__link');
+            console.log('Actual nav links in nav-menu:', actualLinks.length);
+            actualLinks.forEach((link, index) => {
+                console.log(`Link ${index + 1}:`, link.textContent.trim());
+            });
+        }
+    </script>
+</body>
+</html>

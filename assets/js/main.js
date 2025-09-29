@@ -4,8 +4,7 @@
 class Navigation {
     constructor() {
         this.header = document.getElementById('header');
-        this.navMenuLeft = document.getElementById('nav-menu-left');
-        this.navMenuRight = document.getElementById('nav-menu-right');
+        this.navMenu = document.getElementById('nav-menu');
         this.navToggle = document.getElementById('nav-toggle');
         this.navLinks = document.querySelectorAll('.nav__link');
         this.scrollUp = document.getElementById('scroll-up');
@@ -77,10 +76,8 @@ class Navigation {
         const menuList = document.createElement('ul');
         menuList.className = 'nav__list';
         
-        // Collect all nav links from left and right menus
-        const leftLinks = this.navMenuLeft?.querySelectorAll('.nav__link') || [];
-        const rightLinks = this.navMenuRight?.querySelectorAll('.nav__link') || [];
-        const allLinks = [...leftLinks, ...rightLinks];
+        // Collect all nav links from the main nav menu
+        const allLinks = this.navMenu?.querySelectorAll('.nav__link') || [];
         
         // Clone links to mobile menu
         allLinks.forEach(link => {
