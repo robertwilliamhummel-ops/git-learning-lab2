@@ -22,8 +22,8 @@ class Navigation {
     
     setupMobileMenu() {
         if (this.navToggle) {
-            // Create mobile menu if it doesn't exist
-            this.createMobileMenu();
+            // Use the existing nav menu instead of creating a duplicate
+            this.mobileMenu = this.navMenu;
             
             this.navToggle.addEventListener('click', () => {
                 this.mobileMenu.classList.toggle('show-menu');
@@ -64,35 +64,6 @@ class Navigation {
                 }
             }
         });
-    }
-    
-    createMobileMenu() {
-        // Create mobile menu container
-        this.mobileMenu = document.createElement('div');
-        this.mobileMenu.className = 'nav__menu nav__menu--mobile';
-        this.mobileMenu.id = 'nav-menu-mobile';
-        
-        // Create menu list
-        const menuList = document.createElement('ul');
-        menuList.className = 'nav__list';
-        
-        // Collect all nav links from the main nav menu
-        const allLinks = this.navMenu?.querySelectorAll('.nav__link') || [];
-        
-        // Clone links to mobile menu
-        allLinks.forEach(link => {
-            const listItem = document.createElement('li');
-            listItem.className = 'nav__item';
-            const clonedLink = link.cloneNode(true);
-            listItem.appendChild(clonedLink);
-            menuList.appendChild(listItem);
-        });
-        
-        this.mobileMenu.appendChild(menuList);
-        document.body.appendChild(this.mobileMenu);
-        
-        // Update navLinks to include mobile menu links
-        this.navLinks = document.querySelectorAll('.nav__link');
     }
     
     setupScrollEffects() {

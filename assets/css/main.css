@@ -9,6 +9,7 @@
   --accent-purple: #7c3aed;
   --accent-purple-light: #a855f7;
   --accent-purple-dark: #5b21b6;
+  --accent-red: #ef4444;
   
   /* Neutral Colors */
   --white: #ffffff;
@@ -1623,7 +1624,7 @@ a:hover {
 /* Standard mobile phones (414px - 768px) */
 @media screen and (max-width: 414px) {
   .hero.section {
-    padding-top: calc(70px + 30px + env(safe-area-inset-top, 0px)) !important;
+    padding-top: calc(160px + env(safe-area-inset-top, 0px)) !important;
   }
   
   .hero__container {
@@ -1639,7 +1640,7 @@ a:hover {
 /* Small mobile phones (375px and below) */
 @media screen and (max-width: 375px) {
   .hero.section {
-    padding-top: calc(70px + 36px + env(safe-area-inset-top, 0px)) !important;
+    padding-top: calc(165px + env(safe-area-inset-top, 0px)) !important;
   }
   
   .hero__container {
@@ -1654,7 +1655,7 @@ a:hover {
 /* Very small mobile phones (320px and below) */
 @media screen and (max-width: 320px) {
   .hero.section {
-    padding-top: calc(70px + 42px + env(safe-area-inset-top, 0px)) !important;
+    padding-top: calc(170px + env(safe-area-inset-top, 0px)) !important;
   }
   
   .hero__container {
