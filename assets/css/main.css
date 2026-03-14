@@ -812,6 +812,7 @@ a:hover {
   box-shadow: var(--box-shadow-lg);
   color: var(--white);
   animation: none;
+}
 
 .button--call {
   background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-purple) 100%);
@@ -851,7 +852,6 @@ a:hover {
   transform: translateY(-1px);
   box-shadow: 0 0 20px rgba(59, 130, 246, 0.4), 0 0 40px rgba(168, 85, 247, 0.2);
   color: var(--white);
-}
 }
 
 .button--outline {
