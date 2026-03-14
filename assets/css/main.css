@@ -1624,7 +1624,7 @@ a:hover {
 /* Standard mobile phones (414px - 768px) */
 @media screen and (max-width: 414px) {
   .hero.section {
-    padding-top: calc(160px + env(safe-area-inset-top, 0px)) !important;
+    padding-top: calc(175px + env(safe-area-inset-top, 0px)) !important;
   }
   
   .hero__container {
@@ -1640,7 +1640,7 @@ a:hover {
 /* Small mobile phones (375px and below) */
 @media screen and (max-width: 375px) {
   .hero.section {
-    padding-top: calc(165px + env(safe-area-inset-top, 0px)) !important;
+    padding-top: calc(180px + env(safe-area-inset-top, 0px)) !important;
   }
   
   .hero__container {
@@ -1655,7 +1655,7 @@ a:hover {
 /* Very small mobile phones (320px and below) */
 @media screen and (max-width: 320px) {
   .hero.section {
-    padding-top: calc(170px + env(safe-area-inset-top, 0px)) !important;
+    padding-top: calc(185px + env(safe-area-inset-top, 0px)) !important;
   }
   
   .hero__container {
